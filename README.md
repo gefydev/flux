@@ -68,7 +68,11 @@ The entire engine, runtime, and ecosystem packages are **100% Open Source under 
 | **[`@flux/math`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/math)** | Contiguous `Float32Array` vectors (`Vec2`, `Vec3`, `Vec4`) and matrices (`Mat4`, `Quat`) | ✅ Ready |
 | **[`@flux/ecs`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/ecs)** | Data-Oriented Entity Component System with SoA contiguous memory backing | ✅ Ready |
 | **[`@flux/runtime`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/runtime)** | Universal execution loop (RAF / headless timer), high-precision clock & pipeline | ✅ Ready |
+| **[`@flux/scheduler`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/scheduler)** | Heterogeneous execution graph (DAG), pipeline stages, and automatic backend dispatch | ✅ Ready |
+| **[`@flux/resources`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/resources)** | Unified memory tiers, generational resource handles, and GPU dirty tracking | ✅ Ready |
+| **[`@flux/webgpu`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/webgpu)** | High-performance WebGPU compute passes, render pipelines, and hardware context | ✅ Ready |
 | **[`@flux/wasm`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/wasm)** | Multi-language WebAssembly bridge with first-class **Rust** and **C++** adapters | ✅ Ready |
+| **[`@flux/network`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/network)** | Open transport abstraction, binary packet protocol, and authoritative multiplayer server | ✅ Ready |
 
 ---
 
