@@ -11,7 +11,8 @@
       "@flux/wasm",
       "@flux/scheduler",
       "@flux/resources",
-      "@flux/webgpu"
+      "@flux/webgpu",
+      "@flux/network"
     ]
   ],
   "linked": [],

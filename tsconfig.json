@@ -9,6 +9,7 @@
     { "path": "./packages/scheduler" },
     { "path": "./packages/resources" },
     { "path": "./packages/webgpu" },
+    { "path": "./packages/network" },
     { "path": "./examples/basic-simulation" }
   ]
 }
