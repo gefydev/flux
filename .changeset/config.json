@@ -9,7 +9,8 @@
       "@flux/ecs",
       "@flux/runtime",
       "@flux/wasm",
-      "@flux/scheduler"
+      "@flux/scheduler",
+      "@flux/resources"
     ]
   ],
   "linked": [],
