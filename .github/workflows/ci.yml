@@ -39,3 +39,6 @@ jobs:
 
       - name: Run basic simulation smoke test
         run: bun run examples/basic-simulation/src/index.ts
+
+      - name: Build 3D Space Shooter Example
+        run: bun run --cwd examples/space-shooter-3d build

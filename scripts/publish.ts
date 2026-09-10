@@ -11,18 +11,22 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 
+const enableNpm = process.env.ENABLE_NPM_PUBLISH === "true";
 const token = process.env.NPM_TOKEN || process.env.NODE_AUTH_TOKEN;
+
+if (!enableNpm) {
+  console.log("==================================================================");
+  console.log("ℹ️  [Release] NPM registry publishing is disabled by default.");
+  console.log("    To enable publishing packages to npm, set ENABLE_NPM_PUBLISH=true");
+  console.log("    and configure NPM_TOKEN in GitHub repository secrets.");
+  console.log("==================================================================");
+  process.exit(0);
+}
 
 if (!token || token.trim() === "") {
   console.log("==================================================================");
-  console.log("⚡ [Flux Engine Release] No NPM_TOKEN detected in GitHub Secrets.");
-  console.log("------------------------------------------------------------------");
-  console.log("ℹ️  Publishing was skipped gracefully so the CI workflow does not fail.");
-  console.log("ℹ️  To enable publishing packages to npm:");
-  console.log("    1. Go to https://www.npmjs.com/ and create an Access Token (Automation).");
-  console.log("    2. Navigate to your GitHub repository:");
-  console.log("       Settings -> Secrets and variables -> Actions -> Repository secrets");
-  console.log("    3. Add a new secret named 'NPM_TOKEN' with your token value.");
+  console.log("⚠️  [Release] ENABLE_NPM_PUBLISH is true, but no NPM_TOKEN was found.");
+  console.log("    Please configure NPM_TOKEN in your GitHub repository secrets.");
   console.log("==================================================================");
   process.exit(0);
 }
@@ -54,4 +58,14 @@ const child = spawnSync("bunx", ["changeset", "publish"], {
   },
 });
 
-process.exit(child.status ?? 0);
+if (child.status !== 0) {
+  console.log("==================================================================");
+  console.log("⚠️  [NPM Publish Notice]");
+  console.log("    If you encountered 404 Not Found on scoped packages (@flux/*):");
+  console.log("    The scope '@flux' must be registered under your account on npmjs.com.");
+  console.log("    Ensure you have created the organization at https://www.npmjs.com/org/create");
+  console.log("==================================================================");
+  process.exit(child.status ?? 0);
+}
+
+process.exit(0);
