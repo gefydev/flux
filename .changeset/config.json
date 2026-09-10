@@ -26,6 +26,7 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "basic-simulation"
+    "basic-simulation",
+    "space-shooter-3d"
   ]
 }
