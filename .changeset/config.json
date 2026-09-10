@@ -10,7 +10,8 @@
       "@flux/runtime",
       "@flux/wasm",
       "@flux/scheduler",
-      "@flux/resources"
+      "@flux/resources",
+      "@flux/webgpu"
     ]
   ],
   "linked": [],

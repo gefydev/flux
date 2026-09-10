@@ -8,6 +8,7 @@
     { "path": "./packages/wasm" },
     { "path": "./packages/scheduler" },
     { "path": "./packages/resources" },
+    { "path": "./packages/webgpu" },
     { "path": "./examples/basic-simulation" }
   ]
 }
