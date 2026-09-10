@@ -1,0 +1,27 @@
+{
+  "name": "space-shooter-3d",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Functional 3D space flight game and performance test for Flux Engine",
+  "author": "GefyDev <hi@gefy.dev>",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@flux/core": "workspace:*",
+    "@flux/math": "workspace:*",
+    "@flux/ecs": "workspace:*",
+    "@flux/runtime": "workspace:*",
+    "@flux/input": "workspace:*",
+    "@flux/assets": "workspace:*",
+    "@flux/resources": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  },
+  "license": "Apache-2.0"
+}

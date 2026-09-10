@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flux Starfighter 3D ⚡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #05060a;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #e2e8f0;
+    }
+
+    #flux-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+
+    /* HUD Overlay */
+    .hud {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+    }
+
+    .hud-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .brand {
+      background: rgba(13, 17, 23, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #38bdf8;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand p {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* Performance Panel */
+    .perf-panel {
+      background: rgba(13, 17, 23, 0.85);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 12px 18px;
+      border-radius: 8px;
+      min-width: 220px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .perf-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4ade80;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(74, 222, 128, 0.2);
+      padding-bottom: 4px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.82rem;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      color: #94a3b8;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .stat-value.good {
+      color: #4ade80;
+    }
+
+    /* Crosshair */
+    .crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      border: 2px solid rgba(56, 189, 248, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .crosshair::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 4px;
+      background: #38bdf8;
+      border-radius: 50%;
+    }
+
+    /* Bottom HUD */
+    .hud-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .controls-panel {
+      background: rgba(13, 17, 23, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+    }
+
+    .controls-panel kbd {
+      background: #334155;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .game-stats {
+      text-align: right;
+      font-family: 'Consolas', monospace;
+    }
+
+    .score-display {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fbbf24;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="flux-canvas"></canvas>
+
+  <div class="hud">
+    <div class="hud-top">
+      <div class="brand">
+        <h1>⚡ Flux Starfighter 3D</h1>
+        <p>Progressive Engine Architecture &bull; Author: GefyDev</p>
+      </div>
+
+      <div class="perf-panel">
+        <div class="perf-title">⚡ Live Engine Telemetry</div>
+        <div class="stat-row">
+          <span class="stat-label">FPS:</span>
+          <span class="stat-value good" id="stat-fps">60.0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Frame Time:</span>
+          <span class="stat-value" id="stat-ms">0.00 ms</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">3D Entities:</span>
+          <span class="stat-value" id="stat-entities">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">GPU Memory:</span>
+          <span class="stat-value" id="stat-mem">0 KB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="crosshair"></div>
+
+    <div class="hud-bottom">
+      <div class="controls-panel">
+        <kbd>W</kbd> / <kbd>S</kbd> Pitch / Accel &bull; 
+        <kbd>A</kbd> / <kbd>D</kbd> Turn &bull; 
+        <kbd>Space</kbd> or <kbd>Click</kbd> Fire Lasers &bull; 
+        <kbd>Shift</kbd> Turbo Boost
+      </div>
+
+      <div class="game-stats">
+        <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Asteroids Destroyed</div>
+        <div class="score-display" id="hud-score">0</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>

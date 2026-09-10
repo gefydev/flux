@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "references": [
+    { "path": "../../packages/core" },
+    { "path": "../../packages/math" },
+    { "path": "../../packages/ecs" },
+    { "path": "../../packages/runtime" },
+    { "path": "../../packages/input" },
+    { "path": "../../packages/assets" },
+    { "path": "../../packages/resources" }
+  ],
+  "include": ["src/**/*"]
+}

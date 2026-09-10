@@ -16,6 +16,7 @@
     { "path": "./packages/platform" },
     { "path": "./packages/platform-tauri" },
     { "path": "./packages/cli" },
-    { "path": "./examples/basic-simulation" }
+    { "path": "./examples/basic-simulation" },
+    { "path": "./examples/space-shooter-3d" }
   ]
 }
