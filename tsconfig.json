@@ -15,6 +15,7 @@
     { "path": "./packages/audio" },
     { "path": "./packages/platform" },
     { "path": "./packages/platform-tauri" },
+    { "path": "./packages/cli" },
     { "path": "./examples/basic-simulation" }
   ]
 }
