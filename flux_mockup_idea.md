@@ -237,7 +237,7 @@ La arquitectura conceptual sería:
 
 # 5. Core
 
-`@flux/core`
+`@flow.engine/core`
 
 Es la base de todo.
 
@@ -264,7 +264,7 @@ Ni siquiera debería asumir que Flux se está utilizando para un videojuego.
 
 # 6. Runtime
 
-`@flux/runtime`
+`@flow.engine/runtime`
 
 El Runtime sería el corazón de ejecución.
 
@@ -486,7 +486,7 @@ Esto convertiría al profiler en una herramienta de optimización activa.
 
 # 11. JavaScript Backend
 
-`@flux/js`
+`@flow.engine/js`
 
 Es el backend universal.
 
@@ -516,7 +516,7 @@ Lo utiliza donde corresponde.
 
 # 12. WASM Backend
 
-`@flux/wasm`
+`@flow.engine/wasm`
 
 WASM se utiliza para workloads CPU-intensive.
 
@@ -646,7 +646,7 @@ cuando las capacidades disponibles lo permitan.
 
 # 15. GPU Backend
 
-`@flux/webgpu`
+`@flow.engine/webgpu`
 
 La GPU no debería ser solamente el renderer.
 
@@ -756,7 +756,7 @@ de elementos potencialmente visibles.
 
 Uno de los componentes fundamentales de Flux.
 
-`@flux/resources`
+`@flow.engine/resources`
 
 Debe abstraer:
 
@@ -900,7 +900,7 @@ cuando las capacidades del dispositivo lo permitan.
 
 # 22. Asset pipeline
 
-`@flux/assets`
+`@flow.engine/assets`
 
 Durante desarrollo:
 
@@ -953,7 +953,7 @@ LOD chain
 
 # 23. ECS
 
-`@flux/ecs`
+`@flow.engine/ecs`
 
 Flux debería utilizar una arquitectura orientada a datos.
 
@@ -1040,7 +1040,7 @@ Esto ayuda a:
 
 # 26. Workers
 
-`@flux/workers`
+`@flow.engine/workers`
 
 Los trabajos que no necesitan bloquear el thread principal podrían ejecutarse en workers.
 
@@ -1092,7 +1092,7 @@ La cantidad y distribución dependerían del hardware y del runtime.
 
 # 28. Networking
 
-`@flux/network`
+`@flow.engine/network`
 
 La capa de networking debería ser independiente del renderer.
 
@@ -1124,7 +1124,7 @@ Network
 
 # 29. Audio
 
-`@flux/audio`
+`@flow.engine/audio`
 
 Arquitectura:
 
@@ -1154,7 +1154,7 @@ Procedural audio
 
 # 30. Physics
 
-`@flux/physics`
+`@flow.engine/physics`
 
 La API debería abstraer el backend:
 
@@ -1179,7 +1179,7 @@ Flux no necesita inventar un motor de física desde cero para demostrar su arqui
 
 # 31. Tauri
 
-`@flux/platform-tauri`
+`@flow.engine/platform-tauri`
 
 Tauri funcionaría como **shell de escritorio**.
 
@@ -1350,7 +1350,7 @@ Tauri
 
 # 36. Build system
 
-`@flux/build`
+`@flow.engine/build`
 
 Una aplicación debería poder tener:
 
@@ -1414,7 +1414,7 @@ y listo.
 
 # 38. DevTools
 
-`@flux/devtools`
+`@flow.engine/devtools`
 
 Una aplicación gráfica podría mostrar:
 
@@ -1863,7 +1863,7 @@ y tomar control completo.
 
 # 52. Shader system
 
-`@flux/shaders`
+`@flow.engine/shaders`
 
 Debería manejar:
 
@@ -2076,7 +2076,7 @@ JS
 
 # 60. Plataforma
 
-`@flux/platform`
+`@flow.engine/platform`
 
 API abstracta:
 
@@ -2940,25 +2940,25 @@ Cada capa debe poder probarse independientemente.
 Una posible estructura:
 
 ```text
-@flux/core
-@flux/runtime
-@flux/ecs
-@flux/math
-@flux/assets
-@flux/resources
-@flux/webgpu
-@flux/wasm
-@flux/physics
-@flux/audio
-@flux/network
-@flux/input
-@flux/workers
-@flux/devtools
-@flux/platform
-@flux/platform-tauri
-@flux/platform-electron
-@flux/platform-browser
-@flux/cli
+@flow.engine/core
+@flow.engine/runtime
+@flow.engine/ecs
+@flow.engine/math
+@flow.engine/assets
+@flow.engine/resources
+@flow.engine/webgpu
+@flow.engine/wasm
+@flow.engine/physics
+@flow.engine/audio
+@flow.engine/network
+@flow.engine/input
+@flow.engine/workers
+@flow.engine/devtools
+@flow.engine/platform
+@flow.engine/platform-tauri
+@flow.engine/platform-electron
+@flow.engine/platform-browser
+@flow.engine/cli
 ```
 
 ---
@@ -2976,7 +2976,7 @@ minimal dependencies
 Evitar que:
 
 ```text
-@flux/core
+@flow.engine/core
 ```
 
 termine dependiendo de:

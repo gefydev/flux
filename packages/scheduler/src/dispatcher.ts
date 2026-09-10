@@ -1,5 +1,5 @@
-import type { SystemCapabilities } from "@flux/core";
-import type { ExecutionBackend, SystemDefinition } from "@flux/ecs";
+import type { SystemCapabilities } from "@flow.engine/core";
+import type { ExecutionBackend, SystemDefinition } from "@flow.engine/ecs";
 
 export interface DispatchContext {
   capabilities: SystemCapabilities;

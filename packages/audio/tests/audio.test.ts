@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { AudioManager } from "../src/index.js";
 
-describe("@flux/audio", () => {
+describe("@flow.engine/audio", () => {
   it("should initialize AudioManager and compute bus volumes properly", () => {
     const audio = new AudioManager();
 

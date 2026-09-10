@@ -61,7 +61,7 @@ const child = spawnSync("bunx", ["changeset", "publish"], {
 if (child.status !== 0) {
   console.log("==================================================================");
   console.log("⚠️  [NPM Publish Notice]");
-  console.log("    If you encountered 404 Not Found on scoped packages (@flux/*):");
+  console.log("    If you encountered 404 Not Found on scoped packages (@flow.engine/*):");
   console.log("    The scope '@flux' must be registered under your account on npmjs.com.");
   console.log("    Ensure you have created the organization at https://www.npmjs.com/org/create");
   console.log("==================================================================");

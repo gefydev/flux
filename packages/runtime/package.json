@@ -1,5 +1,5 @@
 {
-  "name": "@flux/runtime",
+  "name": "@flow.engine/runtime",
   "version": "0.1.0",
   "description": "Unified execution loop, precision clock, and pipeline orchestrator for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,8 +10,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*",
-    "@flux/ecs": "workspace:*"
+    "@flow.engine/core": "workspace:*",
+    "@flow.engine/ecs": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

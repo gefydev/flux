@@ -1,5 +1,5 @@
 //! Flux Odyssey - Native Physics Engine (Compiled to WebAssembly with C ABI)
-//! Compatible with both @flux/wasm CppWasmAdapter and RustWasmAdapter.
+//! Compatible with both @flow.engine/wasm CppWasmAdapter and RustWasmAdapter.
 //! Copyright (c) 2026 GefyDev <hi@gefy.dev>
 //! Licensed under the Apache License, Version 2.0.
 

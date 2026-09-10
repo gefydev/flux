@@ -4,11 +4,11 @@ A concise description of the changes introduced in this pull request.
 
 ## Packages Affected
 
-- [ ] `@flux/core`
-- [ ] `@flux/math`
-- [ ] `@flux/ecs`
-- [ ] `@flux/runtime`
-- [ ] `@flux/wasm`
+- [ ] `@flow.engine/core`
+- [ ] `@flow.engine/math`
+- [ ] `@flow.engine/ecs`
+- [ ] `@flow.engine/runtime`
+- [ ] `@flow.engine/wasm`
 - [ ] Documentation / Examples / Tooling
 
 ## Progressive Performance & Architecture Considerations

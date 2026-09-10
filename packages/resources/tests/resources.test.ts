@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { BufferUsage, FluxBuffer, ResourceManager } from "../src/index.js";
 
-describe("@flux/resources", () => {
+describe("@flow.engine/resources", () => {
   it("should create buffers and track dirty ranges efficiently", () => {
     const buffer = new FluxBuffer({
       size: 1024,

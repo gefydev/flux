@@ -1,5 +1,5 @@
 {
-  "name": "@flux/platform-tauri",
+  "name": "@flow.engine/platform-tauri",
   "version": "0.1.0",
   "description": "High-performance native desktop runtime adapter for Tauri v2 and Rust in Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,8 +10,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*",
-    "@flux/platform": "workspace:*"
+    "@flow.engine/core": "workspace:*",
+    "@flow.engine/platform": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

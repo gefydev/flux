@@ -1,5 +1,5 @@
 {
-  "name": "@flux/wasm",
+  "name": "@flow.engine/wasm",
   "version": "0.1.0",
   "description": "Multi-language WebAssembly bridge and adapters (Rust, C++, ABI) for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,7 +10,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*"
+    "@flow.engine/core": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

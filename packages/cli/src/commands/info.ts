@@ -1,4 +1,4 @@
-import { CapabilityRegistry } from "@flux/core";
+import { CapabilityRegistry } from "@flow.engine/core";
 
 export function runInfoCommand(): void {
   console.log("==========================================");

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { runCli, runInfoCommand } from "../src/index.js";
 
-describe("@flux/cli", () => {
+describe("@flow.engine/cli", () => {
   it("should run info command without throwing", () => {
     expect(() => runInfoCommand()).not.toThrow();
   });

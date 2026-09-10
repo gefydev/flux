@@ -1,6 +1,6 @@
 # Changesets in Flux Engine ⚡
 
-We use [Changesets](https://github.com/changesets/changesets) to manage versioning and changelogs across all `@flux/*` packages in this monorepo.
+We use [Changesets](https://github.com/changesets/changesets) to manage versioning and changelogs across all `@flow.engine/*` packages in this monorepo.
 
 ## Adding a Changeset
 

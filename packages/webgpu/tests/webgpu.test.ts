@@ -1,8 +1,8 @@
-import { BufferUsage, FluxBuffer } from "@flux/resources";
+import { BufferUsage, FluxBuffer } from "@flow.engine/resources";
 import { describe, expect, it } from "bun:test";
 import { GpuContext, WebGpuRenderer } from "../src/index.js";
 
-describe("@flux/webgpu", () => {
+describe("@flow.engine/webgpu", () => {
   it("should gracefully handle environments without WebGPU hardware support", async () => {
     const context = new GpuContext();
     const ready = await context.init();

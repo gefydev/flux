@@ -1,5 +1,5 @@
-import type { SystemCapabilities } from "@flux/core";
-import { type System, type SystemDefinition, type World, defineSystem } from "@flux/ecs";
+import type { SystemCapabilities } from "@flow.engine/core";
+import { type System, type SystemDefinition, type World, defineSystem } from "@flow.engine/ecs";
 import { BackendDispatcher, type DispatchContext } from "./dispatcher.js";
 import { ExecutionGraph } from "./graph.js";
 import { DEFAULT_STAGE_ORDER, Stage } from "./stages.js";

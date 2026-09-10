@@ -1,5 +1,5 @@
 {
-  "name": "@flux/network",
+  "name": "@flow.engine/network",
   "version": "0.1.0",
   "description": "Open, transport-agnostic multiplayer networking and binary packet protocol for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,7 +10,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*"
+    "@flow.engine/core": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

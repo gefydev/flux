@@ -1,4 +1,4 @@
-import type { FluxBuffer } from "@flux/resources";
+import type { FluxBuffer } from "@flow.engine/resources";
 import { GpuContext } from "./device.js";
 import { PipelineManager } from "./pipeline.js";
 

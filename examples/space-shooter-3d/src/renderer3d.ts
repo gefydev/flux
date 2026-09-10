@@ -1,4 +1,4 @@
-import { Mat4, Vec3 } from "@flux/math";
+import { Mat4, Vec3 } from "@flow.engine/math";
 import type { MeshData } from "./geometry.js";
 
 const VERTEX_SHADER_SOURCE = `#version 300 es

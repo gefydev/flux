@@ -1,5 +1,5 @@
 {
-  "name": "@flux/audio",
+  "name": "@flow.engine/audio",
   "version": "0.1.0",
   "description": "Spatial WebAudio DSP, sound pools, and audio bus management for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,7 +10,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*"
+    "@flow.engine/core": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

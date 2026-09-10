@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { AssetManager, AssetStatus } from "../src/index.js";
 
-describe("@flux/assets", () => {
+describe("@flow.engine/assets", () => {
   it("should request assets and resolve handles asynchronously", async () => {
     const assets = new AssetManager();
 

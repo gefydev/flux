@@ -11,11 +11,11 @@ body:
     attributes:
       label: Affected Package
       options:
-        - "@flux/core"
-        - "@flux/math"
-        - "@flux/ecs"
-        - "@flux/runtime"
-        - "@flux/wasm"
+        - "@flow.engine/core"
+        - "@flow.engine/math"
+        - "@flow.engine/ecs"
+        - "@flow.engine/runtime"
+        - "@flow.engine/wasm"
         - "CLI / Tooling"
         - "Other"
     validations:

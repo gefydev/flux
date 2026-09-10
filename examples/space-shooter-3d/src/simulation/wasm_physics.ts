@@ -3,10 +3,10 @@
  * Copyright (c) 2026 GefyDev <hi@gefy.dev>
  *
  * High-performance WASM simulation bridge for particles and guided missiles.
- * Executes native C++ / Rust code through @flux/wasm CppWasmAdapter.
+ * Executes native C++ / Rust code through @flow.engine/wasm CppWasmAdapter.
  */
 
-import { CppWasmAdapter } from "@flux/wasm";
+import { CppWasmAdapter } from "@flow.engine/wasm";
 
 export interface IParticleData {
   x: number;
@@ -42,7 +42,7 @@ export interface IMissileData {
 
 /**
  * High-performance WASM simulation bridge for particles and guided missiles.
- * Executes native C++ / Rust code through @flux/wasm CppWasmAdapter.
+ * Executes native C++ / Rust code through @flow.engine/wasm CppWasmAdapter.
  */
 export class WasmPhysicsEngine {
   private adapter = new CppWasmAdapter("PhysicsSim");

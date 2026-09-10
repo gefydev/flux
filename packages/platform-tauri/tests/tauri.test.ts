@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { TauriPlatform } from "../src/index.js";
 
-describe("@flux/platform-tauri", () => {
+describe("@flow.engine/platform-tauri", () => {
   it("should detect Tauri availability and provide graceful fallback when running in tests", async () => {
     const platform = new TauriPlatform();
 

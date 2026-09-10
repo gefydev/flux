@@ -3,7 +3,7 @@
  * Copyright 2026 GefyDev (hi@gefy.dev)
  * Licensed under the Apache License, Version 2.0.
  *
- * Compiles to WebAssembly with C ABI for @flux/wasm CppWasmAdapter.
+ * Compiles to WebAssembly with C ABI for @flow.engine/wasm CppWasmAdapter.
  */
 
 #include <cmath>

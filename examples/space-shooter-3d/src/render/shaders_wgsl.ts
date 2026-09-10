@@ -2,7 +2,7 @@
  * @license Apache-2.0
  * Copyright (c) 2026 GefyDev <hi@gefy.dev>
  *
- * High-Performance WGSL Shaders for @flux/webgpu pipeline in Flux Odyssey.
+ * High-Performance WGSL Shaders for @flow.engine/webgpu pipeline in Flux Odyssey.
  */
 
 export const WGSL_PBR_SHADER = /* wgsl */ `

@@ -11,7 +11,7 @@ const minimalWasmBytes = new Uint8Array([
   0x0a, 0x09, 0x01, 0x07, 0x00, 0x20, 0x00, 0x20, 0x01, 0x6a, 0x0b,
 ]);
 
-describe("@flux/wasm", () => {
+describe("@flow.engine/wasm", () => {
   it("should instantiate and read/write memory through WasmBridge", async () => {
     const { instance } = await WebAssembly.instantiate(minimalWasmBytes);
     const bridge = new WasmBridge(instance);

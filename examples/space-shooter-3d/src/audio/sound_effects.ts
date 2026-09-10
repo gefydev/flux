@@ -2,11 +2,11 @@
  * @license Apache-2.0
  * Copyright (c) 2026 GefyDev <hi@gefy.dev>
  *
- * Procedural sci-fi sound effects synthesizer utilizing @flux/audio.
+ * Procedural sci-fi sound effects synthesizer utilizing @flow.engine/audio.
  * Generates cinematic space combat audio entirely in-memory with zero network latency.
  */
 
-import { AudioManager } from "@flux/audio";
+import { AudioManager } from "@flow.engine/audio";
 
 export class SpaceAudioSystem {
   public audioManager = new AudioManager();

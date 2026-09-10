@@ -11,19 +11,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@flux/core": "workspace:*",
-    "@flux/math": "workspace:*",
-    "@flux/ecs": "workspace:*",
-    "@flux/runtime": "workspace:*",
-    "@flux/input": "workspace:*",
-    "@flux/assets": "workspace:*",
-    "@flux/resources": "workspace:*",
-    "@flux/audio": "workspace:*",
-    "@flux/network": "workspace:*",
-    "@flux/platform": "workspace:*",
-    "@flux/scheduler": "workspace:*",
-    "@flux/wasm": "workspace:*",
-    "@flux/webgpu": "workspace:*"
+    "@flow.engine/core": "workspace:*",
+    "@flow.engine/math": "workspace:*",
+    "@flow.engine/ecs": "workspace:*",
+    "@flow.engine/runtime": "workspace:*",
+    "@flow.engine/input": "workspace:*",
+    "@flow.engine/assets": "workspace:*",
+    "@flow.engine/resources": "workspace:*",
+    "@flow.engine/audio": "workspace:*",
+    "@flow.engine/network": "workspace:*",
+    "@flow.engine/platform": "workspace:*",
+    "@flow.engine/scheduler": "workspace:*",
+    "@flow.engine/wasm": "workspace:*",
+    "@flow.engine/webgpu": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.2",

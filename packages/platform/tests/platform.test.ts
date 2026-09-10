@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { BrowserPlatform } from "../src/index.js";
 
-describe("@flux/platform", () => {
+describe("@flow.engine/platform", () => {
   it("should initialize BrowserPlatform and report window geometry", () => {
     const platform = new BrowserPlatform();
     expect(platform.type).toBe("browser");

@@ -5,7 +5,7 @@
  * Component definitions and packed contiguous SoA numeric buffers for Flux Odyssey.
  */
 
-import { defineComponent, definePackedComponent } from "@flux/ecs";
+import { defineComponent, definePackedComponent } from "@flow.engine/ecs";
 
 export const ShipTag = defineComponent("ShipTag", () => ({
   speed: 60,

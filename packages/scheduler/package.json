@@ -1,5 +1,5 @@
 {
-  "name": "@flux/scheduler",
+  "name": "@flow.engine/scheduler",
   "version": "0.1.0",
   "description": "Heterogeneous execution graph and system scheduler for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,8 +10,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*",
-    "@flux/ecs": "workspace:*"
+    "@flow.engine/core": "workspace:*",
+    "@flow.engine/ecs": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

@@ -1,5 +1,5 @@
 {
-  "name": "@flux/ecs",
+  "name": "@flow.engine/ecs",
   "version": "0.1.0",
   "description": "High-performance data-oriented Entity Component System (SoA / TypedArray) for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,7 +10,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/math": "workspace:*"
+    "@flow.engine/math": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

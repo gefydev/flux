@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { InputManager } from "../src/index.js";
 
-describe("@flux/input", () => {
+describe("@flow.engine/input", () => {
   it("should track keyboard and mouse button states across frames", () => {
     const input = new InputManager();
 

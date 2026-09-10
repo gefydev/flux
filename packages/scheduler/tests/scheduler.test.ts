@@ -1,9 +1,9 @@
-import { CapabilityRegistry } from "@flux/core";
-import { World, defineComponent, definePackedComponent } from "@flux/ecs";
+import { CapabilityRegistry } from "@flow.engine/core";
+import { World, defineComponent, definePackedComponent } from "@flow.engine/ecs";
 import { describe, expect, it } from "bun:test";
 import { Scheduler, Stage } from "../src/index.js";
 
-describe("@flux/scheduler", () => {
+describe("@flow.engine/scheduler", () => {
   it("should order systems topologically based on dependencies", () => {
     const scheduler = new Scheduler();
     const order: string[] = [];

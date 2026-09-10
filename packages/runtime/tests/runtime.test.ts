@@ -1,9 +1,9 @@
-import { Application } from "@flux/core";
-import { defineComponent } from "@flux/ecs";
+import { Application } from "@flow.engine/core";
+import { defineComponent } from "@flow.engine/ecs";
 import { describe, expect, it } from "bun:test";
 import { Clock, EngineLoop, createRuntimePlugin } from "../src/index.js";
 
-describe("@flux/runtime", () => {
+describe("@flow.engine/runtime", () => {
   it("should calculate delta, fixed step consumption, and elapsed time in Clock", () => {
     const clock = new Clock(1 / 60);
     clock.start(1000);

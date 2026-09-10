@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { Application, definePlugin } from "../src/index.js";
 
-describe("@flux/core", () => {
+describe("@flow.engine/core", () => {
   it("should initialize application lifecycle and probe capabilities", async () => {
     const app = new Application({ name: "TestApp" });
     expect(app.state).toBe("uninitialized");

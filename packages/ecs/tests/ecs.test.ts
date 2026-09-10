@@ -6,7 +6,7 @@ import {
   defineSystem,
 } from "../src/index.js";
 
-describe("@flux/ecs", () => {
+describe("@flow.engine/ecs", () => {
   it("should create, query, and modify entities with object components", () => {
     const world = new World();
     const Position = defineComponent("Position", () => ({ x: 0, y: 0 }));

@@ -5,9 +5,9 @@
  * Licensed under the Apache License, Version 2.0.
  */
 
-import { Application } from "@flux/core";
-import { definePackedComponent, defineSystem } from "@flux/ecs";
-import { createRuntimePlugin } from "@flux/runtime";
+import { Application } from "@flow.engine/core";
+import { definePackedComponent, defineSystem } from "@flow.engine/ecs";
+import { createRuntimePlugin } from "@flow.engine/runtime";
 
 async function main() {
   console.log("=================================================");

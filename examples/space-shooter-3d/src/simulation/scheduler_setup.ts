@@ -2,11 +2,11 @@
  * @license Apache-2.0
  * Copyright (c) 2026 GefyDev <hi@gefy.dev>
  *
- * System DAG and execution stage configuration using @flux/scheduler.
+ * System DAG and execution stage configuration using @flow.engine/scheduler.
  */
 
-import { type System, type World, defineSystem } from "@flux/ecs";
-import { Scheduler, Stage } from "@flux/scheduler";
+import { type System, type World, defineSystem } from "@flow.engine/ecs";
+import { Scheduler, Stage } from "@flow.engine/scheduler";
 
 export interface GameSystemsBundle {
   inputSystem: System;
@@ -23,7 +23,7 @@ export interface GameSystemsBundle {
 }
 
 /**
- * Configure the execution graph DAG with @flux/scheduler stages.
+ * Configure the execution graph DAG with @flow.engine/scheduler stages.
  */
 export function buildGameScheduler(systems: GameSystemsBundle): Scheduler {
   const scheduler = new Scheduler();

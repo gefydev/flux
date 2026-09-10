@@ -1,5 +1,5 @@
 {
-  "name": "@flux/webgpu",
+  "name": "@flow.engine/webgpu",
   "version": "0.1.0",
   "description": "High-performance WebGPU compute and render pipelines for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -10,8 +10,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*",
-    "@flux/resources": "workspace:*"
+    "@flow.engine/core": "workspace:*",
+    "@flow.engine/resources": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

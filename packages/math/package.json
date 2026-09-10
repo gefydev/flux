@@ -1,5 +1,5 @@
 {
-  "name": "@flux/math",
+  "name": "@flow.engine/math",
   "version": "0.1.0",
   "description": "High-performance contiguous vector and matrix math for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",

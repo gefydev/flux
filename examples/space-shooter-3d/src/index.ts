@@ -3,19 +3,19 @@
  * Copyright (c) 2026 GefyDev <hi@gefy.dev>
  *
  * Flux Odyssey - Ultra-realistic 3D Space Combat Simulator.
- * Orchestrates all Flux Engine packages: @flux/core, @flux/ecs, @flux/math,
- * @flux/runtime, @flux/input, @flux/assets, @flux/resources, @flux/audio,
- * @flux/network, @flux/platform, @flux/scheduler, @flux/wasm, @flux/webgpu.
+ * Orchestrates all Flux Engine packages: @flow.engine/core, @flow.engine/ecs, @flow.engine/math,
+ * @flow.engine/runtime, @flow.engine/input, @flow.engine/assets, @flow.engine/resources, @flow.engine/audio,
+ * @flow.engine/network, @flow.engine/platform, @flow.engine/scheduler, @flow.engine/wasm, @flow.engine/webgpu.
  */
 
-import { Application } from "@flux/core";
-import { defineSystem } from "@flux/ecs";
-import { InputManager } from "@flux/input";
-import { Mat4, Vec3 } from "@flux/math";
-import { BrowserPlatform } from "@flux/platform";
-import { BufferUsage, FluxBuffer } from "@flux/resources";
-import { createRuntimePlugin } from "@flux/runtime";
-import { AssetManager } from "@flux/assets";
+import { Application } from "@flow.engine/core";
+import { defineSystem } from "@flow.engine/ecs";
+import { InputManager } from "@flow.engine/input";
+import { Mat4, Vec3 } from "@flow.engine/math";
+import { BrowserPlatform } from "@flow.engine/platform";
+import { BufferUsage, FluxBuffer } from "@flow.engine/resources";
+import { createRuntimePlugin } from "@flow.engine/runtime";
+import { AssetManager } from "@flow.engine/assets";
 
 import { SpaceAudioSystem } from "./audio/sound_effects.js";
 import {
@@ -46,7 +46,7 @@ async function main() {
   const canvas = document.getElementById("flux-canvas") as HTMLCanvasElement;
   if (!canvas) throw new Error("Canvas element '#flux-canvas' not found.");
 
-  // 1. Platform & Window Setup (@flux/platform)
+  // 1. Platform & Window Setup (@flow.engine/platform)
   const platform = new BrowserPlatform();
   platform.setTitle("⚡ Flux Odyssey - 3D Space Combat Simulator");
 
@@ -57,12 +57,12 @@ async function main() {
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  // 2. Flux Application & Capabilities (@flux/core, @flux/runtime)
+  // 2. Flux Application & Capabilities (@flow.engine/core, @flow.engine/runtime)
   const app = new Application({ name: "Flux Odyssey" });
   app.use(createRuntimePlugin({ fixedTimeStep: 1 / 60 }));
   await app.init();
 
-  // 3. Streaming Asset Manager (@flux/assets)
+  // 3. Streaming Asset Manager (@flow.engine/assets)
   const assetManager = new AssetManager();
   let missionConfig = {
     sector: "Orion Nebula Rim - Sector 7",
@@ -81,20 +81,20 @@ async function main() {
     console.log("⚡ Using built-in mission manifest for sector.");
   }
 
-  // 4. Native C++ / Rust WASM Simulation Engine (@flux/wasm)
+  // 4. Native C++ / Rust WASM Simulation Engine (@flow.engine/wasm)
   const wasmPhysics = new WasmPhysicsEngine();
   await wasmPhysics.init();
 
-  // 5. Audio Synthesizer & Spatial Buses (@flux/audio)
+  // 5. Audio Synthesizer & Spatial Buses (@flow.engine/audio)
   const audio = new SpaceAudioSystem();
   await audio.init();
   window.addEventListener("click", () => audio.resume(), { once: true });
   window.addEventListener("keydown", () => audio.resume(), { once: true });
 
-  // 6. Network Telemetry Service (@flux/network)
+  // 6. Network Telemetry Service (@flow.engine/network)
   const telemetry = new FlightTelemetryService();
 
-  // 7. GPU Resource Buffers (@flux/resources)
+  // 7. GPU Resource Buffers (@flow.engine/resources)
   const particleBuffer = new FluxBuffer({
     label: "WasmParticlePositions",
     size: 1024 * 4 * 4, // 1024 vec4 floats
@@ -115,7 +115,7 @@ async function main() {
   const crystalMesh = renderer.uploadMesh(createCrystalMesh());
   const shieldMesh = renderer.uploadMesh(createShieldBubbleMesh());
 
-  // 9. Semantic Input System (@flux/input)
+  // 9. Semantic Input System (@flow.engine/input)
   const input = new InputManager();
   input.attach(window);
 
@@ -140,7 +140,7 @@ async function main() {
   input.actions.bindMouseButton("SecondaryFire", 2); // Right Click
   input.actions.bindKey("EMP", "KeyR");
 
-  // 10. Spawn Initial Entities into ECS World (@flux/ecs)
+  // 10. Spawn Initial Entities into ECS World (@flow.engine/ecs)
   const world = app.world;
 
   // Player Starfighter
@@ -254,7 +254,7 @@ async function main() {
     ]);
   }
 
-  // 11. Define Systems Bundle for @flux/scheduler
+  // 11. Define Systems Bundle for @flow.engine/scheduler
   let shootCooldown = 0;
   let missileCooldown = 0;
   let cameraShake = 0;
@@ -410,7 +410,7 @@ async function main() {
     }
   });
 
-  // System: Native WASM Physics Step (@flux/wasm)
+  // System: Native WASM Physics Step (@flow.engine/wasm)
   const wasmPhysicsSystem = defineSystem((_, dt) => {
     wasmPhysics.update(dt);
   });
@@ -754,7 +754,7 @@ async function main() {
     }
   });
 
-  // System: Network Flight Telemetry Stream (@flux/network)
+  // System: Network Flight Telemetry Stream (@flow.engine/network)
   let lastTelemetryStream = performance.now();
   const telemetrySystem = defineSystem((w) => {
     const now = performance.now();
@@ -785,7 +785,7 @@ async function main() {
     }
   });
 
-  // System: Dynamic Audio Modulation (@flux/audio)
+  // System: Dynamic Audio Modulation (@flow.engine/audio)
   const audioSystem = defineSystem((w) => {
     const shipEnt = w.query(ShipTag).first();
     if (shipEnt !== undefined) {
@@ -1112,7 +1112,7 @@ async function main() {
     input.endFrame();
   });
 
-  // 12. Build & Compile Scheduler DAG (@flux/scheduler)
+  // 12. Build & Compile Scheduler DAG (@flow.engine/scheduler)
   const scheduler = buildGameScheduler({
     inputSystem,
     flightSystem,

@@ -1,5 +1,5 @@
 {
-  "name": "@flux/cli",
+  "name": "@flow.engine/cli",
   "version": "0.1.0",
   "description": "Command-line interface and project generator for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",
@@ -13,7 +13,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*"
+    "@flow.engine/core": "workspace:*"
   },
   "scripts": {
     "test": "bun test"

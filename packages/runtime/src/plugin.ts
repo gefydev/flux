@@ -1,9 +1,9 @@
-import { type Application, definePlugin } from "@flux/core";
-import { World } from "@flux/ecs";
+import { type Application, definePlugin } from "@flow.engine/core";
+import { World } from "@flow.engine/ecs";
 import { EngineLoop } from "./loop.js";
 
 // Extend Application with runtime properties
-declare module "@flux/core" {
+declare module "@flow.engine/core" {
   interface Application {
     loop: EngineLoop;
     world: World;
@@ -19,7 +19,7 @@ export interface RuntimePluginOptions {
  */
 export function createRuntimePlugin(options: RuntimePluginOptions = {}) {
   return definePlugin({
-    name: "@flux/runtime",
+    name: "@flow.engine/runtime",
     version: "0.1.0",
     install(app: Application) {
       const loop = new EngineLoop(options.fixedTimeStep ?? 1 / 60);

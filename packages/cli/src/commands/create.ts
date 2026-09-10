@@ -26,10 +26,10 @@ export function runCreateCommand(options: CreateProjectOptions): void {
       test: "bun test",
     },
     dependencies: {
-      "@flux/core": "^0.1.0",
-      "@flux/math": "^0.1.0",
-      "@flux/ecs": "^0.1.0",
-      "@flux/runtime": "^0.1.0",
+      "@flow.engine/core": "^0.1.0",
+      "@flow.engine/math": "^0.1.0",
+      "@flow.engine/ecs": "^0.1.0",
+      "@flow.engine/runtime": "^0.1.0",
     },
     devDependencies: {
       typescript: "^5.7.2",
@@ -51,9 +51,9 @@ export function runCreateCommand(options: CreateProjectOptions): void {
   fs.writeFileSync(path.join(targetDir, "tsconfig.json"), JSON.stringify(tsConfig, null, 2));
 
   // 3. src/index.ts
-  const indexTs = `import { Application } from "@flux/core";
-import { createRuntimePlugin } from "@flux/runtime";
-import { defineComponent, defineSystem } from "@flux/ecs";
+  const indexTs = `import { Application } from "@flow.engine/core";
+import { createRuntimePlugin } from "@flow.engine/runtime";
+import { defineComponent, defineSystem } from "@flow.engine/ecs";
 
 async function main() {
   const app = new Application({ name: "${options.name}" });

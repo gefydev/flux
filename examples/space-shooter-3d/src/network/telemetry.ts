@@ -2,10 +2,10 @@
  * @license Apache-2.0
  * Copyright (c) 2026 GefyDev <hi@gefy.dev>
  *
- * Real-time binary flight telemetry service utilizing @flux/network.
+ * Real-time binary flight telemetry service utilizing @flow.engine/network.
  */
 
-import { PacketReader, PacketWriter } from "@flux/network";
+import { PacketReader, PacketWriter } from "@flow.engine/network";
 
 export interface ITelemetrySnapshot {
   timestamp: number;
@@ -23,7 +23,7 @@ export interface ITelemetrySnapshot {
 }
 
 /**
- * Binary flight recorder & network telemetry synchronization using @flux/network.
+ * Binary flight recorder & network telemetry synchronization using @flow.engine/network.
  * Compresses flight dynamics into ultra-lean binary packets.
  */
 export class FlightTelemetryService {

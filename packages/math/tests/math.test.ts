@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { Mat4, Quat, Vec2, Vec3, Vec4 } from "../src/index.js";
 
-describe("@flux/math", () => {
+describe("@flow.engine/math", () => {
   it("should perform Vec2 and Vec3 operations with zero allocations", () => {
     const v1 = new Vec3(1, 2, 3);
     const v2 = new Vec3(4, 5, 6);

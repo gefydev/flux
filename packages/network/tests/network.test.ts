@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { FluxServer, PacketReader, PacketWriter } from "../src/index.js";
 
-describe("@flux/network", () => {
+describe("@flow.engine/network", () => {
   it("should serialize and deserialize binary packets with zero data loss", () => {
     const writer = new PacketWriter();
 

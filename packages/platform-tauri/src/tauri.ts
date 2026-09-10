@@ -1,4 +1,4 @@
-import type { IPlatform, PlatformType } from "@flux/platform";
+import type { IPlatform, PlatformType } from "@flow.engine/platform";
 
 /**
  * Platform adapter connecting Flux Engine to Tauri v2 and the Rust native backend.

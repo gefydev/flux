@@ -1,5 +1,5 @@
 {
-  "name": "@flux/core",
+  "name": "@flow.engine/core",
   "version": "0.1.0",
   "description": "Core lifecycle, capabilities, application, and plugin system for Flux Engine",
   "author": "GefyDev <hi@gefy.dev>",

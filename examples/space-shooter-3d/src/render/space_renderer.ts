@@ -6,7 +6,7 @@
  * Supports WebGPU and WebGL2 PBR rendering pipelines.
  */
 
-import { Mat4, Vec3 } from "@flux/math";
+import { Mat4, Vec3 } from "@flow.engine/math";
 import type { MeshData } from "../geometry.js";
 import {
   MESH_FRAGMENT_SHADER,

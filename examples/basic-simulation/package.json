@@ -9,10 +9,10 @@
     "start": "bun run src/index.ts"
   },
   "dependencies": {
-    "@flux/core": "workspace:*",
-    "@flux/math": "workspace:*",
-    "@flux/ecs": "workspace:*",
-    "@flux/runtime": "workspace:*"
+    "@flow.engine/core": "workspace:*",
+    "@flow.engine/math": "workspace:*",
+    "@flow.engine/ecs": "workspace:*",
+    "@flow.engine/runtime": "workspace:*"
   },
   "license": "Apache-2.0"
 }
