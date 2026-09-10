@@ -42,6 +42,13 @@ export class World {
   }
 
   /**
+   * Reconstruct full generational Entity handle from raw index.
+   */
+  public getEntity(index: number): Entity {
+    return this.entityPool.getEntity(index);
+  }
+
+  /**
    * Get the internal storage for a component type.
    */
   public getStorage(type: AnyComponentType): IComponentStorage {

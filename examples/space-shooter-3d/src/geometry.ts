@@ -10,23 +10,24 @@ export interface MeshData {
  */
 export function createStarfighterMesh(): MeshData {
   // Vertices: [x, y, z, nx, ny, nz, u, v]
+  // Oriented forward towards -Z (standard camera looking forward)
   const vertices = [
     // Nose tip
-    0, 0, 3.5,     0, 0, 1,    0.5, 1.0,
+    0, 0, -3.5,     0, 0, -1,    0.5, 1.0,
     // Cockpit top
-    0, 0.7, 0.5,   0, 1, 0.2,  0.5, 0.6,
+    0, 0.7, -0.5,   0, 1, -0.2,  0.5, 0.6,
     // Left wingtip
-    -3.2, -0.2, -1.5, -0.3, 0.8, -0.5, 0.0, 0.0,
+    -3.2, -0.2, 1.5, -0.3, 0.8, 0.5, 0.0, 0.0,
     // Right wingtip
-    3.2, -0.2, -1.5,  0.3, 0.8, -0.5, 1.0, 0.0,
+    3.2, -0.2, 1.5,  0.3, 0.8, 0.5, 1.0, 0.0,
     // Engine center
-    0, -0.3, -2.0,  0, 0, -1,   0.5, 0.0,
+    0, -0.3, 2.0,  0, 0, 1,   0.5, 0.0,
     // Cockpit base
-    0, -0.6, 0.5,  0, -1, 0,    0.5, 0.4,
+    0, -0.6, -0.5,  0, -1, 0,    0.5, 0.4,
     // Left engine
-    -0.8, 0, -2.0, -0.5, 0, -1, 0.2, 0.0,
+    -0.8, 0, 2.0, -0.5, 0, 1, 0.2, 0.0,
     // Right engine
-    0.8, 0, -2.0,  0.5, 0, -1,  0.8, 0.0,
+    0.8, 0, 2.0,  0.5, 0, 1,  0.8, 0.0,
   ];
 
   const indices = [

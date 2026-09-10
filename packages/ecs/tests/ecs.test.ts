@@ -85,4 +85,31 @@ describe("@flux/ecs", () => {
     expect(world.isAlive(e2)).toBe(true);
     expect(e2).not.toBe(e1);
   });
+
+  it("should safely handle entity destruction during query iteration", () => {
+    const world = new World();
+    const Item = defineComponent("Item", () => ({ val: 0 }));
+
+    const entities = [];
+    for (let i = 0; i < 10; i++) {
+      const e = world.createEntity();
+      world.add(e, Item, { val: i });
+      entities.push(e);
+    }
+
+    // Destroy every even entity during query iteration
+    for (const ent of world.query(Item)) {
+      const item = world.get(ent, Item);
+      expect(item).toBeDefined();
+      if (item!.val % 2 === 0) {
+        world.destroyEntity(ent);
+      }
+    }
+
+    const remaining = Array.from(world.query(Item));
+    expect(remaining.length).toBe(5);
+    for (const ent of remaining) {
+      expect(world.get(ent, Item)!.val % 2).toBe(1);
+    }
+  });
 });

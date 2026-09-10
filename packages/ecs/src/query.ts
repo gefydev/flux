@@ -38,25 +38,34 @@ export class Query {
     const drivingStorage = this.world.getStorage(smallestType);
     const dense = (drivingStorage as any).denseEntities;
     const len = drivingStorage.count;
+    if (len === 0) return;
+
+    // Snapshot dense entity indices to prevent iterator corruption from in-loop deletions/mutations
+    const snapshot = Array.isArray(dense) ? dense.slice(0, len) : (dense as Int32Array).slice(0, len);
 
     outer: for (let i = 0; i < len; i++) {
-      const entityIndex = dense[i]!;
+      const entityIndex = snapshot[i]!;
+      const entity = this.world.getEntity(entityIndex);
+      if (entity === -1 || !this.world.isAlive(entity)) {
+        continue;
+      }
+
       // Check that entity has all other components
       for (const t of this.types) {
-        if (t !== smallestType && !this.world.getStorage(t).has(entityIndex)) {
+        if (!this.world.getStorage(t).has(entityIndex)) {
           continue outer;
         }
       }
 
       // Convert entity index back to live entity
-      yield entityIndex;
+      yield entity;
     }
   }
 
   /**
    * Fast callback iteration without generator overhead.
    */
-  public forEach(callback: (entityIndex: number) => void): void {
+  public forEach(callback: (entity: Entity) => void): void {
     if (this.types.length === 0) return;
 
     let smallestType = this.types[0]!;
@@ -74,15 +83,23 @@ export class Query {
     const drivingStorage = this.world.getStorage(smallestType);
     const dense = (drivingStorage as any).denseEntities;
     const len = drivingStorage.count;
+    if (len === 0) return;
+
+    const snapshot = Array.isArray(dense) ? dense.slice(0, len) : (dense as Int32Array).slice(0, len);
 
     outer: for (let i = 0; i < len; i++) {
-      const entityIndex = dense[i]!;
+      const entityIndex = snapshot[i]!;
+      const entity = this.world.getEntity(entityIndex);
+      if (entity === -1 || !this.world.isAlive(entity)) {
+        continue;
+      }
+
       for (const t of this.types) {
-        if (t !== smallestType && !this.world.getStorage(t).has(entityIndex)) {
+        if (!this.world.getStorage(t).has(entityIndex)) {
           continue outer;
         }
       }
-      callback(entityIndex);
+      callback(entity);
     }
   }
 }

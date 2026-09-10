@@ -101,8 +101,8 @@ export class Renderer3D {
 
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
-    gl.enable(gl.CULL_FACE);
-    gl.cullFace(gl.BACK);
+    // Disable backface culling to ensure all wings and procedurally rotated geometry render double-sided
+    gl.disable(gl.CULL_FACE);
   }
 
   public resize(width: number, height: number): void {
@@ -124,6 +124,11 @@ export class Renderer3D {
 
     // Light direction (sun in space)
     gl.uniform3f(this.uLightDirLoc, 0.6, 0.8, -0.4);
+
+    // Ensure default texture is bound to unit 0
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.defaultTexture);
+    gl.uniform1i(this.uTextureLoc, 0);
 
     // Calculate View-Projection matrix: vpMatrix = projMatrix * viewMatrix
     this.projMatrix.multiply(this.viewMatrix, this.vpMatrix);

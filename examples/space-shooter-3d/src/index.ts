@@ -140,16 +140,22 @@ async function main() {
   // Projectile & Asteroid Movement System
   const movementSystem = defineSystem((world, dt) => {
     // Lasers
+    const toDestroy: number[] = [];
+
     for (const ent of world.query(LaserTag)) {
-      const laser = world.get(ent, LaserTag)!;
+      const laser = world.get(ent, LaserTag);
+      if (!laser) continue;
+
       laser.life -= dt;
       if (laser.life <= 0) {
-        world.destroyEntity(ent);
+        toDestroy.push(ent);
         continue;
       }
 
       const pOff = world.getPackedOffset(ent, Position3D);
       const vOff = world.getPackedOffset(ent, Velocity3D);
+      if (pOff < 0 || vOff < 0) continue;
+
       const pBuf = world.getPackedBuffer(Position3D);
       const vBuf = world.getPackedBuffer(Velocity3D);
 
@@ -158,10 +164,16 @@ async function main() {
       pBuf[pOff + 2] = pBuf[pOff + 2]! + vBuf[vOff + 2]! * dt;
     }
 
+    for (const ent of toDestroy) {
+      world.destroyEntity(ent);
+    }
+
     // Asteroids
     for (const ent of world.query(AsteroidTag)) {
       const pOff = world.getPackedOffset(ent, Position3D);
       const vOff = world.getPackedOffset(ent, Velocity3D);
+      if (pOff < 0 || vOff < 0) continue;
+
       const pBuf = world.getPackedBuffer(Position3D);
       const vBuf = world.getPackedBuffer(Velocity3D);
 
@@ -175,17 +187,24 @@ async function main() {
   const combatSystem = defineSystem((world) => {
     const shipEnt = world.query(ShipTag)[Symbol.iterator]().next().value;
     const ship = shipEnt ? world.get(shipEnt, ShipTag) : null;
+    const lasersToDestroy: number[] = [];
 
     for (const laserEnt of world.query(LaserTag)) {
       const lpOff = world.getPackedOffset(laserEnt, Position3D);
+      if (lpOff < 0) continue;
+
       const lpBuf = world.getPackedBuffer(Position3D);
       const lx = lpBuf[lpOff + 0]!;
       const ly = lpBuf[lpOff + 1]!;
       const lz = lpBuf[lpOff + 2]!;
 
       for (const astEnt of world.query(AsteroidTag)) {
-        const ast = world.get(astEnt, AsteroidTag)!;
+        const ast = world.get(astEnt, AsteroidTag);
+        if (!ast) continue;
+
         const apOff = world.getPackedOffset(astEnt, Position3D);
+        if (apOff < 0) continue;
+
         const apBuf = world.getPackedBuffer(Position3D);
         const ax = apBuf[apOff + 0]!;
         const ay = apBuf[apOff + 1]!;
@@ -194,7 +213,7 @@ async function main() {
         const distSq = (lx - ax) ** 2 + (ly - ay) ** 2 + (lz - az) ** 2;
         if (distSq < (ast.size + 1.0) ** 2) {
           // Hit!
-          world.destroyEntity(laserEnt);
+          lasersToDestroy.push(laserEnt);
           ast.hp--;
           if (ast.hp <= 0) {
             // Asteroid destroyed: respawn ahead
@@ -207,6 +226,10 @@ async function main() {
           break;
         }
       }
+    }
+
+    for (const laserEnt of lasersToDestroy) {
+      world.destroyEntity(laserEnt);
     }
   });
 
@@ -227,8 +250,12 @@ async function main() {
     const shipEnt = world.query(ShipTag)[Symbol.iterator]().next().value;
     if (!shipEnt) return;
 
-    const ship = world.get(shipEnt, ShipTag)!;
+    const ship = world.get(shipEnt, ShipTag);
+    if (!ship) return;
+
     const sOff = world.getPackedOffset(shipEnt, Position3D);
+    if (sOff < 0) return;
+
     const sBuf = world.getPackedBuffer(Position3D);
     const sx = sBuf[sOff + 0]!;
     const sy = sBuf[sOff + 1]!;
@@ -249,8 +276,12 @@ async function main() {
 
     // 3. Render Asteroids
     for (const ent of world.query(AsteroidTag)) {
-      const ast = world.get(ent, AsteroidTag)!;
+      const ast = world.get(ent, AsteroidTag);
+      if (!ast) continue;
+
       const off = world.getPackedOffset(ent, Position3D);
+      if (off < 0) continue;
+
       const buf = world.getPackedBuffer(Position3D);
       renderer.drawMesh(
         asteroidMesh,
@@ -265,6 +296,8 @@ async function main() {
     // 4. Render Lasers (emissive neon cyan)
     for (const ent of world.query(LaserTag)) {
       const off = world.getPackedOffset(ent, Position3D);
+      if (off < 0) continue;
+
       const buf = world.getPackedBuffer(Position3D);
       renderer.drawMesh(
         laserMesh,
