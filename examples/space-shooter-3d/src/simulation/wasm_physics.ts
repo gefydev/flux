@@ -98,14 +98,23 @@ export class WasmPhysicsEngine {
     }
   }
 
-  public spawnEnginePlume(x: number, y: number, z: number, shipVx: number, shipVy: number, shipVz: number, yaw: number): void {
+  public spawnEnginePlume(
+    x: number, y: number, z: number,
+    shipVx: number, shipVy: number, shipVz: number,
+    yaw: number, pitch = 0
+  ): void {
     const spd = 60.0 + Math.random() * 20.0;
     const spreadX = (Math.random() - 0.5) * 4.0;
     const spreadY = (Math.random() - 0.5) * 4.0;
 
-    const vx = shipVx * 0.3 + Math.sin(yaw) * spd + spreadX;
-    const vy = shipVy * 0.3 + spreadY;
-    const vz = shipVz * 0.3 + Math.cos(yaw) * spd;
+    // Backward direction along ship orientation (-F)
+    const backX = Math.sin(yaw) * Math.cos(pitch);
+    const backY = -Math.sin(pitch);
+    const backZ = Math.cos(yaw) * Math.cos(pitch);
+
+    const vx = shipVx * 0.3 + backX * spd + spreadX;
+    const vy = shipVy * 0.3 + backY * spd + spreadY;
+    const vz = shipVz * 0.3 + backZ * spd;
 
     if (this.isReady) {
       const exp = this.adapter.getExports();

@@ -130,6 +130,93 @@ export class Mat4 {
     return out;
   }
 
+  public rotateX(rad: number, out: Mat4 = this): Mat4 {
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const a = this.data;
+    const ao = this.offset;
+    const r = out.data;
+    const ro = out.offset;
+
+    const a10 = a[ao + 4]!, a11 = a[ao + 5]!, a12 = a[ao + 6]!, a13 = a[ao + 7]!;
+    const a20 = a[ao + 8]!, a21 = a[ao + 9]!, a22 = a[ao + 10]!, a23 = a[ao + 11]!;
+
+    if (this !== out) {
+      for (let i = 0; i < 4; i++) {
+        r[ro + i] = a[ao + i]!;
+        r[ro + 12 + i] = a[ao + 12 + i]!;
+      }
+    }
+
+    r[ro + 4] = a10 * c + a20 * s;
+    r[ro + 5] = a11 * c + a21 * s;
+    r[ro + 6] = a12 * c + a22 * s;
+    r[ro + 7] = a13 * c + a23 * s;
+    r[ro + 8] = a20 * c - a10 * s;
+    r[ro + 9] = a21 * c - a11 * s;
+    r[ro + 10] = a22 * c - a12 * s;
+    r[ro + 11] = a23 * c - a13 * s;
+    return out;
+  }
+
+  public rotateY(rad: number, out: Mat4 = this): Mat4 {
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const a = this.data;
+    const ao = this.offset;
+    const r = out.data;
+    const ro = out.offset;
+
+    const a00 = a[ao + 0]!, a01 = a[ao + 1]!, a02 = a[ao + 2]!, a03 = a[ao + 3]!;
+    const a20 = a[ao + 8]!, a21 = a[ao + 9]!, a22 = a[ao + 10]!, a23 = a[ao + 11]!;
+
+    if (this !== out) {
+      for (let i = 0; i < 4; i++) {
+        r[ro + 4 + i] = a[ao + 4 + i]!;
+        r[ro + 12 + i] = a[ao + 12 + i]!;
+      }
+    }
+
+    r[ro + 0] = a00 * c - a20 * s;
+    r[ro + 1] = a01 * c - a21 * s;
+    r[ro + 2] = a02 * c - a22 * s;
+    r[ro + 3] = a03 * c - a23 * s;
+    r[ro + 8] = a00 * s + a20 * c;
+    r[ro + 9] = a01 * s + a21 * c;
+    r[ro + 10] = a02 * s + a22 * c;
+    r[ro + 11] = a03 * s + a23 * c;
+    return out;
+  }
+
+  public rotateZ(rad: number, out: Mat4 = this): Mat4 {
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const a = this.data;
+    const ao = this.offset;
+    const r = out.data;
+    const ro = out.offset;
+
+    const a00 = a[ao + 0]!, a01 = a[ao + 1]!, a02 = a[ao + 2]!, a03 = a[ao + 3]!;
+    const a10 = a[ao + 4]!, a11 = a[ao + 5]!, a12 = a[ao + 6]!, a13 = a[ao + 7]!;
+
+    if (this !== out) {
+      for (let i = 0; i < 4; i++) {
+        r[ro + 8 + i] = a[ao + 8 + i]!;
+        r[ro + 12 + i] = a[ao + 12 + i]!;
+      }
+    }
+
+    r[ro + 0] = a00 * c + a10 * s;
+    r[ro + 1] = a01 * c + a11 * s;
+    r[ro + 2] = a02 * c + a12 * s;
+    r[ro + 3] = a03 * c + a13 * s;
+    r[ro + 4] = a10 * c - a00 * s;
+    r[ro + 5] = a11 * c - a01 * s;
+    r[ro + 6] = a12 * c - a02 * s;
+    r[ro + 7] = a13 * c - a03 * s;
+    return out;
+  }
+
   /**
    * Generates a perspective projection matrix.
    * Defaults to OpenGL/WebGL depth range (-1 to 1 NDC).

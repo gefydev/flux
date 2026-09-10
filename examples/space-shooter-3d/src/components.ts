@@ -44,6 +44,8 @@ export const AsteroidTag = defineComponent("AsteroidTag", () => ({
 export const LaserTag = defineComponent("LaserTag", () => ({
   life: 2.8,
   isEnemy: false,
+  yaw: 0,
+  pitch: 0,
 }));
 
 export const CrystalTag = defineComponent("CrystalTag", () => ({

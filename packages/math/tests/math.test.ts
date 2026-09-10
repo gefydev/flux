@@ -40,4 +40,25 @@ describe("@flux/math", () => {
     expect(out.data[10]).toBe(1);
     expect(out.data[15]).toBe(1);
   });
+
+  it("should rotate Mat4 around X, Y, and Z axes", () => {
+    const m = new Mat4();
+    m.rotateX(Math.PI / 2);
+    // cos(pi/2) = 0, sin(pi/2) = 1
+    // row 1 col 1 (idx 5) = cos = 0, row 2 col 1 (idx 6) = sin = 1
+    expect(Math.abs(m.data[5]!)).toBeLessThan(1e-6);
+    expect(Math.abs(m.data[6]! - 1)).toBeLessThan(1e-6);
+
+    const my = new Mat4();
+    my.rotateY(Math.PI / 2);
+    // row 0 col 0 (idx 0) = cos = 0, row 2 col 0 (idx 2) = -sin = -1
+    expect(Math.abs(my.data[0]!)).toBeLessThan(1e-6);
+    expect(Math.abs(my.data[2]! + 1)).toBeLessThan(1e-6);
+
+    const mz = new Mat4();
+    mz.rotateZ(Math.PI / 2);
+    // row 0 col 0 (idx 0) = cos = 0, row 1 col 0 (idx 1) = sin = 1
+    expect(Math.abs(mz.data[0]!)).toBeLessThan(1e-6);
+    expect(Math.abs(mz.data[1]! - 1)).toBeLessThan(1e-6);
+  });
 });

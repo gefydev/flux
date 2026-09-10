@@ -216,24 +216,29 @@ async function main() {
   // Spawn initial wave
   spawnEnemySquadron(4, -350);
 
-  function spawnPlasmaLasers(x: number, y: number, z: number, yaw: number, isEnemy = false) {
+  function spawnPlasmaLasers(x: number, y: number, z: number, yaw: number, pitch = 0, isEnemy = false) {
     const cosY = Math.cos(yaw);
     const sinY = Math.sin(yaw);
     const offsets = isEnemy ? [0] : [-2.8, 2.8];
+
+    const speed = isEnemy ? 190 : 340;
+    const forwardX = -Math.sin(yaw) * Math.cos(pitch);
+    const forwardY = Math.sin(pitch);
+    const forwardZ = -Math.cos(yaw) * Math.cos(pitch);
+
+    const dir = isEnemy ? -1 : 1;
+    const vx = dir * forwardX * speed;
+    const vy = dir * forwardY * speed;
+    const vz = dir * forwardZ * speed;
 
     for (const wingX of offsets) {
       const lx = x + wingX * cosY;
       const lz = z - wingX * sinY;
       const laser = world.createEntity();
-      world.add(laser, LaserTag, { life: 2.8, isEnemy });
-
-      const speed = isEnemy ? 190 : 340;
-      const dir = isEnemy ? 1 : -1;
-      const vx = dir * Math.sin(yaw) * speed;
-      const vz = dir * Math.cos(yaw) * speed;
+      world.add(laser, LaserTag, { life: 2.8, isEnemy, yaw, pitch });
 
       world.addPacked(laser, Position3D, [lx, y, lz]);
-      world.addPacked(laser, Velocity3D, [vx, 0, vz]);
+      world.addPacked(laser, Velocity3D, [vx, vy, vz]);
     }
     if (!isEnemy) audio.playLaser();
   }
@@ -274,31 +279,62 @@ async function main() {
     const vBuf = w.getPackedBuffer(Velocity3D);
 
     const turnSpeed = 2.4;
-    if (input.isPressed("TurnLeft")) {
-      ship.yaw += turnSpeed * dt;
-      ship.roll += 2.0 * dt;
-    } else if (input.isPressed("TurnRight")) {
-      ship.yaw -= turnSpeed * dt;
-      ship.roll -= 2.0 * dt;
+    const pitchSpeed = 2.0;
+    const rollSpeed = 3.6;
+
+    // Pitch Control (W / S or ArrowUp / ArrowDown)
+    if (input.isPressed("PitchUp")) {
+      ship.pitch = Math.min(1.35, ship.pitch + pitchSpeed * dt);
+    } else if (input.isPressed("PitchDown")) {
+      ship.pitch = Math.max(-1.35, ship.pitch - pitchSpeed * dt);
     } else {
-      ship.roll *= Math.pow(0.1, dt); // Return to level
+      // Return pitch towards horizontal level
+      ship.pitch *= Math.pow(0.2, dt);
     }
 
-    if (input.isPressed("RollLeft")) ship.roll += 3.5 * dt;
-    if (input.isPressed("RollRight")) ship.roll -= 3.5 * dt;
-    if (input.isPressed("PitchUp")) ship.pitch += turnSpeed * 0.9 * dt;
-    if (input.isPressed("PitchDown")) ship.pitch -= turnSpeed * 0.9 * dt;
+    // Yaw Control (A / D or ArrowLeft / ArrowRight)
+    if (input.isPressed("TurnLeft")) {
+      ship.yaw += turnSpeed * dt;
+    } else if (input.isPressed("TurnRight")) {
+      ship.yaw -= turnSpeed * dt;
+    }
+
+    // Roll Control (Q / E) & Aerodynamic Banking
+    let manualRoll = false;
+    if (input.isPressed("RollLeft")) {
+      ship.roll += rollSpeed * dt;
+      manualRoll = true;
+    }
+    if (input.isPressed("RollRight")) {
+      ship.roll -= rollSpeed * dt;
+      manualRoll = true;
+    }
+
+    if (!manualRoll) {
+      if (input.isPressed("TurnLeft")) {
+        const targetRoll = 0.6; // ~35° banking into turn
+        ship.roll += (targetRoll - ship.roll) * dt * 5.0;
+      } else if (input.isPressed("TurnRight")) {
+        const targetRoll = -0.6;
+        ship.roll += (targetRoll - ship.roll) * dt * 5.0;
+      } else {
+        // Return wings to level smoothly
+        ship.roll *= Math.pow(0.08, dt);
+      }
+    }
 
     // Turbo Boost
     const isBoosting = input.isPressed("Boost");
     const targetSpeed = isBoosting ? ship.maxSpeed : 70;
     ship.speed += (targetSpeed - ship.speed) * dt * 4.0;
 
-    // Kinematic translation along forward vector
-    const forwardX = -Math.sin(ship.yaw);
-    const forwardZ = -Math.cos(ship.yaw);
+    // Full 3D Kinematic translation along forward vector
+    const forwardX = -Math.sin(ship.yaw) * Math.cos(ship.pitch);
+    const forwardY = Math.sin(ship.pitch);
+    const forwardZ = -Math.cos(ship.yaw) * Math.cos(ship.pitch);
 
     vBuf[vOff + 0] = forwardX * ship.speed;
+    vBuf[vOff + 1] = forwardY * ship.speed;
     vBuf[vOff + 2] = forwardZ * ship.speed;
 
     pBuf[pOff + 0] = pBuf[pOff + 0]! + vBuf[vOff + 0]! * dt;
@@ -309,12 +345,13 @@ async function main() {
     wasmPhysics.spawnEnginePlume(
       pBuf[pOff + 0]!, pBuf[pOff + 1]!, pBuf[pOff + 2]!,
       vBuf[vOff + 0]!, vBuf[vOff + 1]!, vBuf[vOff + 2]!,
-      ship.yaw
+      ship.yaw,
+      ship.pitch
     );
 
     // Primary Weapons: Dual Plasma Blasters
     if (input.isPressed("PrimaryFire") && shootCooldown <= 0) {
-      spawnPlasmaLasers(pBuf[pOff + 0]!, pBuf[pOff + 1]!, pBuf[pOff + 2]!, ship.yaw, false);
+      spawnPlasmaLasers(pBuf[pOff + 0]!, pBuf[pOff + 1]!, pBuf[pOff + 2]!, ship.yaw, ship.pitch, false);
       shootCooldown = isBoosting ? 0.12 : 0.16;
       cameraShake = 0.3;
     }
@@ -327,7 +364,7 @@ async function main() {
 
       // Find nearest enemy drone for homing lock
       let targetX = pBuf[pOff + 0]! + forwardX * 300;
-      let targetY = pBuf[pOff + 1]!;
+      let targetY = pBuf[pOff + 1]! + forwardY * 300;
       let targetZ = pBuf[pOff + 2]! + forwardZ * 300;
 
       for (const enemyEnt of w.query(EnemyTag)) {
@@ -426,7 +463,9 @@ async function main() {
       // Firing logic
       drone.fireCooldown -= dt;
       if (drone.fireCooldown <= 0 && dist < 450) {
-        spawnPlasmaLasers(pBuf[pOff + 0]!, pBuf[pOff + 1]!, pBuf[pOff + 2]!, drone.rotSpeedY, true);
+        const horizDist = Math.hypot(dx, dz);
+        const targetPitch = Math.atan2(dy, horizDist);
+        spawnPlasmaLasers(pBuf[pOff + 0]!, pBuf[pOff + 1]!, pBuf[pOff + 2]!, drone.rotSpeedY, targetPitch, true);
         drone.fireCooldown = 1.8 + Math.random() * 1.2;
       }
     }
@@ -764,6 +803,7 @@ async function main() {
   const statMem = document.getElementById("stat-mem")!;
   const statWasm = document.getElementById("stat-wasm")!;
   const statNet = document.getElementById("stat-net")!;
+  const statAttitude = document.getElementById("stat-attitude");
 
   const hudWave = document.getElementById("hud-wave")!;
   const hudScore = document.getElementById("hud-score")!;
@@ -817,24 +857,46 @@ async function main() {
     const shakeX = (Math.random() - 0.5) * cameraShake * 1.5;
     const shakeY = (Math.random() - 0.5) * cameraShake * 1.5;
 
-    const camDist = 18.0;
-    const camHeight = 5.8;
-    const camX = sx + Math.sin(ship.yaw) * camDist + shakeX;
-    const camY = sy + camHeight + shakeY;
-    const camZ = sz + Math.cos(ship.yaw) * camDist;
+    // Ship 3D orientation vectors
+    const fX = -Math.sin(ship.yaw) * Math.cos(ship.pitch);
+    const fY = Math.sin(ship.pitch);
+    const fZ = -Math.cos(ship.yaw) * Math.cos(ship.pitch);
+
+    // Ship local up vector before roll
+    const uX = Math.sin(ship.yaw) * Math.sin(ship.pitch);
+    const uY = Math.cos(ship.pitch);
+    const uZ = Math.cos(ship.yaw) * Math.sin(ship.pitch);
+
+    // Ship local right vector
+    const rX = -Math.cos(ship.yaw);
+    const rY = 0;
+    const rZ = Math.sin(ship.yaw);
+
+    // Apply roll to camera up vector
+    const cosR = Math.cos(ship.roll);
+    const sinR = Math.sin(ship.roll);
+    const camUpX = uX * cosR - rX * sinR;
+    const camUpY = uY * cosR - rY * sinR;
+    const camUpZ = uZ * cosR - rZ * sinR;
+
+    const camDist = 19.0;
+    const camHeight = 5.2;
+    const camX = sx - fX * camDist + camUpX * camHeight + shakeX;
+    const camY = sy - fY * camDist + camUpY * camHeight + shakeY;
+    const camZ = sz - fZ * camDist + camUpZ * camHeight;
 
     renderer.cameraPos = new Vec3(camX, camY, camZ);
 
-    // Build View Matrix (lookAt)
+    // Build View Matrix (lookAt) looking slightly ahead of the ship
     buildLookAt(
       renderer.viewMatrix,
       new Vec3(camX, camY, camZ),
-      new Vec3(sx, sy + 1.2, sz),
-      new Vec3(0, 1, 0)
+      new Vec3(sx + fX * 10.0, sy + fY * 10.0 + camUpY * 0.8, sz + fZ * 10.0),
+      new Vec3(camUpX, camUpY, camUpZ)
     );
 
     // Forward direction for skybox parallax
-    const camDir = new Vec3(-Math.sin(ship.yaw), 0, -Math.cos(ship.yaw));
+    const camDir = new Vec3(fX, fY, fZ);
     renderer.beginFrame(time, camDir);
 
     // 1. Draw Player Starfighter
@@ -844,6 +906,7 @@ async function main() {
       new Vec3(sx, sy, sz),
       ship.yaw,
       ship.pitch,
+      ship.roll,
       1.0,
       {
         color: [0.15, 0.75, 1.0],
@@ -877,6 +940,7 @@ async function main() {
         new Vec3(buf[off + 0]!, buf[off + 1]!, buf[off + 2]!),
         drone.rotSpeedY,
         0,
+        0,
         drone.type === "interceptor" ? 1.8 : 1.2,
         {
           color: drone.type === "interceptor" ? [0.95, 0.2, 0.2] : [1.0, 0.45, 0.1],
@@ -900,6 +964,7 @@ async function main() {
         new Vec3(buf[off + 0]!, buf[off + 1]!, buf[off + 2]!),
         ast.rotSpeedY * time,
         ast.rotSpeedX * time,
+        0,
         ast.size,
         {
           color: [0.7, 0.55, 0.45],
@@ -921,7 +986,8 @@ async function main() {
       renderer.drawMesh(
         laserMesh,
         new Vec3(buf[off + 0]!, buf[off + 1]!, buf[off + 2]!),
-        ship.yaw,
+        laser.yaw,
+        laser.pitch,
         0,
         1.0,
         {
@@ -937,10 +1003,13 @@ async function main() {
     // 6. Draw Homing Missiles
     wasmPhysics.forEachMissile((m) => {
       const yaw = Math.atan2(m.vx, m.vz);
+      const horiz = Math.hypot(m.vx, m.vz);
+      const pitch = Math.atan2(m.vy, horiz);
       renderer.drawMesh(
         missileMesh,
         new Vec3(m.x, m.y, m.z),
         yaw,
+        pitch,
         0,
         1.0,
         {
@@ -965,6 +1034,7 @@ async function main() {
         new Vec3(buf[off + 0]!, buf[off + 1]!, buf[off + 2]!),
         crystal.rotSpeed * time,
         crystal.rotSpeed * time * 0.7,
+        0,
         1.0,
         {
           color: [0.2, 1.0, 0.6],
@@ -1015,6 +1085,11 @@ async function main() {
       statMem.innerText = `~${(renderer.totalTriangles * 0.048).toFixed(1)} KB`;
       statWasm.innerText = wasmPhysics.isReady ? `Native (${pCount} pt)` : `JS Fallback (${pCount} pt)`;
       statNet.innerText = `${telemetry.packetsSent} pkts (${(telemetry.bytesStreamed / 1024).toFixed(1)} KB)`;
+      if (statAttitude) {
+        const pitchDeg = Math.round((ship.pitch * 180) / Math.PI);
+        const rollDeg = Math.round((ship.roll * 180) / Math.PI);
+        statAttitude.innerText = `${pitchDeg > 0 ? "+" : ""}${pitchDeg}° / ${rollDeg > 0 ? "+" : ""}${rollDeg}°`;
+      }
 
       // Vitals
       barShield.style.width = `${Math.max(0, ship.shield)}%`;

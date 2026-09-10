@@ -185,9 +185,10 @@ export class SpaceRenderer {
   public drawMesh(
     mesh: RenderableMesh,
     position: Vec3,
-    rotationYaw: number,
-    rotationPitch: number,
-    scale: number,
+    rotationYaw = 0,
+    rotationPitch = 0,
+    rotationRoll = 0,
+    scale = 1.0,
     options: DrawOptions = {}
   ): void {
     const gl = this.gl;
@@ -195,19 +196,13 @@ export class SpaceRenderer {
     this.modelMatrix.identity();
     this.modelMatrix.translate(position);
 
-    // Apply Yaw (Y)
-    const cosY = Math.cos(rotationYaw), sinY = Math.sin(rotationYaw);
-    const d = this.modelMatrix.data;
-    const m00 = d[0]!, m02 = d[2]!, m10 = d[4]!, m12 = d[6]!, m20 = d[8]!, m22 = d[10]!;
-    d[0] = m00 * cosY + m02 * sinY;
-    d[2] = -m00 * sinY + m02 * cosY;
-    d[4] = m10 * cosY + m12 * sinY;
-    d[6] = -m10 * sinY + m12 * cosY;
-    d[8] = m20 * cosY + m22 * sinY;
-    d[10] = -m20 * sinY + m22 * cosY;
+    // Apply 3D Euler rotations: Yaw (around Y), Pitch (around X), Roll (around Z)
+    if (rotationYaw !== 0) this.modelMatrix.rotateY(rotationYaw);
+    if (rotationPitch !== 0) this.modelMatrix.rotateX(rotationPitch);
+    if (rotationRoll !== 0) this.modelMatrix.rotateZ(rotationRoll);
 
     // Scale
-    this.modelMatrix.scale(new Vec3(scale, scale, scale));
+    if (scale !== 1.0) this.modelMatrix.scale(new Vec3(scale, scale, scale));
 
     // MVP = VP * Model
     this.vpMatrix.multiply(this.modelMatrix, this.mvpMatrix);
