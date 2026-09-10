@@ -10,6 +10,7 @@
     { "path": "./packages/resources" },
     { "path": "./packages/webgpu" },
     { "path": "./packages/network" },
+    { "path": "./packages/assets" },
     { "path": "./examples/basic-simulation" }
   ]
 }
