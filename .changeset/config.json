@@ -13,7 +13,9 @@
       "@flux/resources",
       "@flux/webgpu",
       "@flux/network",
-      "@flux/assets"
+      "@flux/assets",
+      "@flux/input",
+      "@flux/audio"
     ]
   ],
   "linked": [],

@@ -11,6 +11,8 @@
     { "path": "./packages/webgpu" },
     { "path": "./packages/network" },
     { "path": "./packages/assets" },
+    { "path": "./packages/input" },
+    { "path": "./packages/audio" },
     { "path": "./examples/basic-simulation" }
   ]
 }
