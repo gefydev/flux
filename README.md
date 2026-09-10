@@ -73,6 +73,12 @@ The entire engine, runtime, and ecosystem packages are **100% Open Source under 
 | **[`@flux/webgpu`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/webgpu)** | High-performance WebGPU compute passes, render pipelines, and hardware context | ✅ Ready |
 | **[`@flux/wasm`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/wasm)** | Multi-language WebAssembly bridge with first-class **Rust** and **C++** adapters | ✅ Ready |
 | **[`@flux/network`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/network)** | Open transport abstraction, binary packet protocol, and authoritative multiplayer server | ✅ Ready |
+| **[`@flux/assets`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/assets)** | Streaming asset pipeline, loaders (text, json, binary), and priority handles | ✅ Ready |
+| **[`@flux/input`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/input)** | Unified keyboard, mouse, touch, and action mapping system | ✅ Ready |
+| **[`@flux/audio`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/audio)** | WebAudio sound manager with master/music/sfx volume buses | ✅ Ready |
+| **[`@flux/platform`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/platform)** | Cross-platform hardware and windowing abstractions (Browser & Headless) | ✅ Ready |
+| **[`@flux/platform-tauri`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/platform-tauri)** | High-performance Tauri v2 desktop runtime bridge and native Rust commands | ✅ Ready |
+| **[`@flux/cli`](file:///c:/Users/genar/Documents/GitHub/flux-engine/packages/cli)** | Command-line tool (`flux create`, `flux info`, `flux dev`, `flux build`) | ✅ Ready |
 
 ---
 
