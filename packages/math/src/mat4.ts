@@ -131,9 +131,11 @@ export class Mat4 {
   }
 
   /**
-   * Generates a perspective projection matrix (WebGPU depth range 0 to 1).
+   * Generates a perspective projection matrix.
+   * Defaults to OpenGL/WebGL depth range (-1 to 1 NDC).
+   * Pass isWebGpu = true for WebGPU depth range (0 to 1 NDC).
    */
-  public perspective(fovyRad: number, aspect: number, near: number, far: number): this {
+  public perspective(fovyRad: number, aspect: number, near: number, far: number, isWebGpu = false): this {
     const f = 1.0 / Math.tan(fovyRad / 2);
     const nf = 1 / (near - far);
     const d = this.data;
@@ -151,12 +153,12 @@ export class Mat4 {
 
     d[o + 8] = 0;
     d[o + 9] = 0;
-    d[o + 10] = far * nf;
+    d[o + 10] = isWebGpu ? far * nf : (far + near) * nf;
     d[o + 11] = -1;
 
     d[o + 12] = 0;
     d[o + 13] = 0;
-    d[o + 14] = far * near * nf;
+    d[o + 14] = isWebGpu ? far * near * nf : 2 * far * near * nf;
     d[o + 15] = 0;
 
     return this;

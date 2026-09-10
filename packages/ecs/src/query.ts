@@ -102,4 +102,13 @@ export class Query {
       callback(entity);
     }
   }
+
+  /**
+   * Get the first matching entity or undefined if query is empty.
+   */
+  public first(): Entity | undefined {
+    const iter = this[Symbol.iterator]();
+    const res = iter.next();
+    return res.done ? undefined : res.value;
+  }
 }

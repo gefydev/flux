@@ -4,6 +4,7 @@
  */
 
 export type Entity = number;
+export const NULL_ENTITY: Entity = 0;
 
 const INDEX_MASK = 0xfffff; // 20 bits -> ~1,000,000 entities
 const GENERATION_SHIFT = 20;
@@ -12,7 +13,7 @@ export class EntityPool {
   private generations: Uint16Array;
   private alive: Uint8Array;
   private freeList: number[] = [];
-  private nextIndex = 0;
+  private nextIndex = 1; // 0 is reserved as NULL_ENTITY
   private capacity: number;
 
   constructor(initialCapacity = 100000) {
@@ -87,6 +88,6 @@ export class EntityPool {
     this.generations.fill(0);
     this.alive.fill(0);
     this.freeList.length = 0;
-    this.nextIndex = 0;
+    this.nextIndex = 1;
   }
 }

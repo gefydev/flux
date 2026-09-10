@@ -185,8 +185,8 @@ async function main() {
 
   // Combat Collision System (3D Sphere vs Point)
   const combatSystem = defineSystem((world) => {
-    const shipEnt = world.query(ShipTag)[Symbol.iterator]().next().value;
-    const ship = shipEnt ? world.get(shipEnt, ShipTag) : null;
+    const shipEnt = world.query(ShipTag).first();
+    const ship = shipEnt !== undefined ? world.get(shipEnt, ShipTag) : null;
     const lasersToDestroy: number[] = [];
 
     for (const laserEnt of world.query(LaserTag)) {
@@ -247,8 +247,8 @@ async function main() {
     renderer.beginFrame();
 
     // 1. Position camera behind player ship
-    const shipEnt = world.query(ShipTag)[Symbol.iterator]().next().value;
-    if (!shipEnt) return;
+    const shipEnt = world.query(ShipTag).first();
+    if (shipEnt === undefined) return;
 
     const ship = world.get(shipEnt, ShipTag);
     if (!ship) return;
