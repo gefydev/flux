@@ -8,7 +8,8 @@
       "@flux/math",
       "@flux/ecs",
       "@flux/runtime",
-      "@flux/wasm"
+      "@flux/wasm",
+      "@flux/scheduler"
     ]
   ],
   "linked": [],

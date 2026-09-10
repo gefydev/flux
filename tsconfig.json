@@ -6,6 +6,7 @@
     { "path": "./packages/ecs" },
     { "path": "./packages/runtime" },
     { "path": "./packages/wasm" },
+    { "path": "./packages/scheduler" },
     { "path": "./examples/basic-simulation" }
   ]
 }
