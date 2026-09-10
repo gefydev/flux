@@ -15,7 +15,9 @@
       "@flux/network",
       "@flux/assets",
       "@flux/input",
-      "@flux/audio"
+      "@flux/audio",
+      "@flux/platform",
+      "@flux/platform-tauri"
     ]
   ],
   "linked": [],

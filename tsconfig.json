@@ -13,6 +13,8 @@
     { "path": "./packages/assets" },
     { "path": "./packages/input" },
     { "path": "./packages/audio" },
+    { "path": "./packages/platform" },
+    { "path": "./packages/platform-tauri" },
     { "path": "./examples/basic-simulation" }
   ]
 }
