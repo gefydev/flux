@@ -10,11 +10,16 @@
   ],
   "scripts": {
     "test": "bun test",
-    "typecheck": "tsc --build --dry",
+    "typecheck": "tsc --build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
     "clean": "git clean -xdf -e node_modules"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.11",
     "@types/node": "^22.10.2",
+    "bun-types": "^1.4.2",
     "typescript": "^5.7.2"
   },
   "engines": {

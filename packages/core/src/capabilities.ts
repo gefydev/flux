@@ -75,7 +75,8 @@ export class CapabilityRegistry {
       if ("Bun" in globalThis) return "bun";
       if (typeof process !== "undefined" && (process as any).versions?.electron) return "electron";
       if (typeof process !== "undefined" && (process as any).versions?.node) return "node";
-      if (typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope) return "worker";
+      const g = globalThis as any;
+      if (typeof g.WorkerGlobalScope !== "undefined" && typeof self !== "undefined" && self instanceof g.WorkerGlobalScope) return "worker";
       if (typeof window !== "undefined") return "browser";
     }
     return "unknown";

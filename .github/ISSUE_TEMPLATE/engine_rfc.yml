@@ -1,0 +1,42 @@
+name: 📐 Engine RFC (Request for Comments)
+description: Propose an architectural change, new engine subsystem, or major backend design.
+labels: ["rfc", "architecture"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        RFCs are used to discuss major architectural patterns, memory layout models, scheduler designs, or backend adapters before writing code.
+  - type: input
+    id: title
+    attributes:
+      label: RFC Title
+      placeholder: "e.g. RFC: WebGPU Indirect Drawing & GPU Culling Pipeline"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Brief one-paragraph explanation of the architectural proposal.
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & Use Cases
+      description: Why are we doing this? What use cases does it support? What is the performance impact?
+    validations:
+      required: true
+  - type: textarea
+    id: detailed-design
+    attributes:
+      label: Detailed Design & API
+      description: Technical details, data flow, memory management, and code examples.
+      render: typescript
+    validations:
+      required: true
+  - type: textarea
+    id: drawbacks
+    attributes:
+      label: Drawbacks & Risks
+      description: Trade-offs, complexities, or potential downsides.

@@ -35,8 +35,8 @@ export class RustWasmAdapter<T = any> implements WasmAdapter<T> {
     if (source instanceof WebAssembly.Module) {
       instance = await WebAssembly.instantiate(source, imports);
     } else {
-      const res = await WebAssembly.instantiate(source, imports);
-      instance = res.instance;
+      const res: any = await WebAssembly.instantiate(source, imports);
+      instance = res.instance ?? res;
     }
 
     this.bridge.attach(instance);
@@ -76,8 +76,8 @@ export class CppWasmAdapter<T = any> implements WasmAdapter<T> {
     if (source instanceof WebAssembly.Module) {
       instance = await WebAssembly.instantiate(source, imports);
     } else {
-      const res = await WebAssembly.instantiate(source, imports);
-      instance = res.instance;
+      const res: any = await WebAssembly.instantiate(source, imports);
+      instance = res.instance ?? res;
     }
 
     this.bridge.attach(instance);

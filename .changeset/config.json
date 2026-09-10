@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@flux/core",
+      "@flux/math",
+      "@flux/ecs",
+      "@flux/runtime",
+      "@flux/wasm"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "basic-simulation"
+  ]
+}
