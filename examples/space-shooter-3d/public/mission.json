@@ -1,0 +1,11 @@
+{
+  "missionId": "flux_odyssey_alpha",
+  "sector": "Orion Nebula Rim - Sector 7",
+  "asteroidFieldDensity": 180,
+  "enemyWaves": [
+    { "wave": 1, "scouts": 3, "interceptors": 0, "gunships": 0, "name": "Vanguard Probes" },
+    { "wave": 2, "scouts": 4, "interceptors": 2, "gunships": 0, "name": "Interceptor Strike" },
+    { "wave": 3, "scouts": 4, "interceptors": 4, "gunships": 1, "name": "Dreadnought Fleet" }
+  ],
+  "objective": "Annihilate hostile alien fleet and secure the antimatter crystals."
+}

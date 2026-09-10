@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flux Starfighter 3D ⚡</title>
+  <title>Flux Odyssey ⚡ Ultra-Realistic 3D Space Combat</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <style>
     * {
@@ -17,7 +17,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: #05060a;
+      background-color: #030408;
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: #e2e8f0;
     }
@@ -53,60 +53,83 @@
       align-items: flex-start;
     }
 
+    .brand-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .brand {
-      background: rgba(13, 17, 23, 0.75);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      backdrop-filter: blur(8px);
+      background: rgba(10, 14, 24, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      backdrop-filter: blur(12px);
       padding: 12px 18px;
       border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
     }
 
     .brand h1 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: #38bdf8;
       text-transform: uppercase;
       display: flex;
       align-items: center;
       gap: 8px;
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
     }
 
     .brand p {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: #94a3b8;
       margin-top: 4px;
     }
 
-    /* Performance Panel */
-    .perf-panel {
-      background: rgba(13, 17, 23, 0.85);
-      border: 1px solid rgba(74, 222, 128, 0.3);
+    .mission-status {
+      background: rgba(10, 14, 24, 0.75);
+      border: 1px solid rgba(251, 191, 36, 0.3);
       backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: #fbbf24;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Performance Telemetry Panel */
+    .perf-panel {
+      background: rgba(10, 14, 24, 0.9);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      backdrop-filter: blur(12px);
       padding: 12px 18px;
       border-radius: 8px;
-      min-width: 220px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      min-width: 250px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
     }
 
     .perf-title {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       color: #4ade80;
       margin-bottom: 8px;
       border-bottom: 1px solid rgba(74, 222, 128, 0.2);
       padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
     }
 
     .stat-row {
       display: flex;
       justify-content: space-between;
-      font-family: 'Consolas', 'Courier New', monospace;
-      font-size: 0.82rem;
-      margin-bottom: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 0.78rem;
+      margin-bottom: 3px;
     }
 
     .stat-label {
@@ -122,17 +145,28 @@
       color: #4ade80;
     }
 
-    /* Crosshair */
-    .crosshair {
+    .stat-value.highlight {
+      color: #38bdf8;
+    }
+
+    /* Crosshair & Holographic Targeting */
+    .crosshair-container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 32px;
-      height: 32px;
-      border: 2px solid rgba(56, 189, 248, 0.5);
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
       pointer-events: none;
+    }
+
+    .crosshair {
+      width: 100%;
+      height: 100%;
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      border-radius: 50%;
+      position: relative;
+      transition: transform 0.08s ease-out;
     }
 
     .crosshair::before {
@@ -145,6 +179,33 @@
       height: 4px;
       background: #38bdf8;
       border-radius: 50%;
+      box-shadow: 0 0 8px #38bdf8;
+    }
+
+    .target-box {
+      position: absolute;
+      border: 1.5px dashed rgba(239, 68, 68, 0.75);
+      border-radius: 4px;
+      display: none;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Screen Flash FX */
+    .damage-flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, transparent 40%, rgba(239, 68, 68, 0.4) 100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease-out;
+      z-index: 5;
     }
 
     /* Bottom HUD */
@@ -152,20 +213,89 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 20px;
     }
 
-    .controls-panel {
-      background: rgba(13, 17, 23, 0.75);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      backdrop-filter: blur(8px);
-      padding: 10px 16px;
+    /* Ship Status & Bars */
+    .vitals-panel {
+      background: rgba(10, 14, 24, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      backdrop-filter: blur(12px);
+      padding: 14px 18px;
       border-radius: 8px;
-      font-size: 0.75rem;
+      min-width: 260px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .bar-group {
+      margin-bottom: 8px;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      font-family: monospace;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bar-fill {
+      height: 100%;
+      transition: width 0.15s ease-out;
+      border-radius: 3px;
+    }
+
+    .bar-fill.shield {
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+      box-shadow: 0 0 8px #38bdf8;
+    }
+
+    .bar-fill.hull {
+      background: linear-gradient(90deg, #16a34a, #4ade80);
+      box-shadow: 0 0 8px #4ade80;
+    }
+
+    .bar-fill.emp {
+      background: linear-gradient(90deg, #7c3aed, #a855f7);
+      box-shadow: 0 0 8px #a855f7;
+    }
+
+    .ammo-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-family: monospace;
+      font-size: 0.76rem;
+    }
+
+    /* Controls Reference */
+    .controls-panel {
+      background: rgba(10, 14, 24, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.74rem;
       color: #cbd5e1;
+      text-align: center;
+      line-height: 1.8;
     }
 
     .controls-panel kbd {
-      background: #334155;
+      background: #1e293b;
+      border: 1px solid #475569;
       padding: 2px 6px;
       border-radius: 4px;
       font-family: monospace;
@@ -173,31 +303,69 @@
       font-weight: 700;
     }
 
-    .game-stats {
+    /* Game Score & Loot */
+    .score-panel {
+      background: rgba(10, 14, 24, 0.85);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      backdrop-filter: blur(12px);
+      padding: 14px 20px;
+      border-radius: 8px;
+      min-width: 220px;
       text-align: right;
-      font-family: 'Consolas', monospace;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
     }
 
-    .score-display {
-      font-size: 1.5rem;
+    .score-title {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-family: monospace;
+    }
+
+    .score-value {
+      font-size: 1.7rem;
       font-weight: 800;
       color: #fbbf24;
-      text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+      font-family: 'Consolas', monospace;
+      text-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
+    }
+
+    .loot-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 6px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: #34d399;
+      margin-top: 4px;
     }
   </style>
 </head>
 <body>
   <canvas id="flux-canvas"></canvas>
+  <div class="damage-flash" id="damage-flash"></div>
 
   <div class="hud">
+    <!-- Top HUD -->
     <div class="hud-top">
-      <div class="brand">
-        <h1>⚡ Flux Starfighter 3D</h1>
-        <p>Progressive Engine Architecture &bull; Author: GefyDev</p>
+      <div class="brand-box">
+        <div class="brand">
+          <h1>⚡ Flux Odyssey</h1>
+          <p>Next-Gen 3D Space Combat Simulator &bull; Author: GefyDev</p>
+        </div>
+        <div class="mission-status" id="hud-mission">
+          <span>SECTOR: ORION NEBULA RIM</span> &bull; 
+          <span id="hud-wave">WAVE 1 / 3</span> &bull; 
+          <span id="hud-threat" style="color: #4ade80;">THREAT: NORMAL</span>
+        </div>
       </div>
 
       <div class="perf-panel">
-        <div class="perf-title">⚡ Live Engine Telemetry</div>
+        <div class="perf-title">
+          <span>⚡ Engine Telemetry</span>
+          <span style="color: #38bdf8;">WebGPU / C++</span>
+        </div>
         <div class="stat-row">
           <span class="stat-label">FPS:</span>
           <span class="stat-value good" id="stat-fps">60.0</span>
@@ -208,28 +376,92 @@
         </div>
         <div class="stat-row">
           <span class="stat-label">3D Entities:</span>
-          <span class="stat-value" id="stat-entities">0</span>
+          <span class="stat-value highlight" id="stat-entities">0</span>
         </div>
         <div class="stat-row">
           <span class="stat-label">GPU Memory:</span>
           <span class="stat-value" id="stat-mem">0 KB</span>
         </div>
+        <div class="stat-row">
+          <span class="stat-label">C++ / WASM:</span>
+          <span class="stat-value good" id="stat-wasm">Native (1024 pt)</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Net Stream:</span>
+          <span class="stat-value" id="stat-net">0 pkts (0 KB)</span>
+        </div>
       </div>
     </div>
 
-    <div class="crosshair"></div>
+    <!-- Center Crosshair & Target Reticle -->
+    <div class="crosshair-container">
+      <div class="crosshair" id="hud-crosshair"></div>
+      <div class="target-box" id="hud-target-box"></div>
+    </div>
 
+    <!-- Bottom HUD -->
     <div class="hud-bottom">
-      <div class="controls-panel">
-        <kbd>W</kbd> / <kbd>S</kbd> Pitch / Accel &bull; 
-        <kbd>A</kbd> / <kbd>D</kbd> Turn &bull; 
-        <kbd>Space</kbd> or <kbd>Click</kbd> Fire Lasers &bull; 
-        <kbd>Shift</kbd> Turbo Boost
+      <!-- Vitals -->
+      <div class="vitals-panel">
+        <div class="bar-group">
+          <div class="bar-label" style="color: #38bdf8;">
+            <span>Shield</span>
+            <span id="label-shield">100%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill shield" id="bar-shield" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="bar-group">
+          <div class="bar-label" style="color: #4ade80;">
+            <span>Hull Integrity</span>
+            <span id="label-hull">100%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill hull" id="bar-hull" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="bar-group">
+          <div class="bar-label" style="color: #a855f7;">
+            <span>EMP Shockwave</span>
+            <span id="label-emp">READY</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill emp" id="bar-emp" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="ammo-row">
+          <span style="color: #94a3b8;">Homing Missiles:</span>
+          <span style="color: #fbbf24; font-weight: 700;" id="label-missiles">12 / 24</span>
+        </div>
       </div>
 
-      <div class="game-stats">
-        <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Asteroids Destroyed</div>
-        <div class="score-display" id="hud-score">0</div>
+      <!-- Controls -->
+      <div class="controls-panel">
+        <div>
+          <kbd>W</kbd>/<kbd>S</kbd> Pitch &bull; 
+          <kbd>A</kbd>/<kbd>D</kbd> Turn &bull; 
+          <kbd>Q</kbd>/<kbd>E</kbd> Roll &bull; 
+          <kbd>Shift</kbd> Turbo Boost
+        </div>
+        <div>
+          <kbd>Space</kbd> / <kbd>L-Click</kbd> Plasma Blasters &bull; 
+          <kbd>F</kbd> / <kbd>R-Click</kbd> Homing Missile &bull; 
+          <kbd>R</kbd> EMP Shockwave
+        </div>
+      </div>
+
+      <!-- Score & Loot -->
+      <div class="score-panel">
+        <div class="score-title">Fleet Combat Score</div>
+        <div class="score-value" id="hud-score">0</div>
+        <div class="loot-row">
+          <span>💎 Antimatter Crystals:</span>
+          <span style="font-weight: 700;" id="hud-crystals">0</span>
+        </div>
       </div>
     </div>
   </div>

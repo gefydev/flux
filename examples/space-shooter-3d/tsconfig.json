@@ -11,7 +11,13 @@
     { "path": "../../packages/runtime" },
     { "path": "../../packages/input" },
     { "path": "../../packages/assets" },
-    { "path": "../../packages/resources" }
+    { "path": "../../packages/resources" },
+    { "path": "../../packages/audio" },
+    { "path": "../../packages/network" },
+    { "path": "../../packages/platform" },
+    { "path": "../../packages/scheduler" },
+    { "path": "../../packages/wasm" },
+    { "path": "../../packages/webgpu" }
   ],
   "include": ["src/**/*"]
 }

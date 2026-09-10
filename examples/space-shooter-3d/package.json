@@ -17,7 +17,13 @@
     "@flux/runtime": "workspace:*",
     "@flux/input": "workspace:*",
     "@flux/assets": "workspace:*",
-    "@flux/resources": "workspace:*"
+    "@flux/resources": "workspace:*",
+    "@flux/audio": "workspace:*",
+    "@flux/network": "workspace:*",
+    "@flux/platform": "workspace:*",
+    "@flux/scheduler": "workspace:*",
+    "@flux/wasm": "workspace:*",
+    "@flux/webgpu": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.2",
