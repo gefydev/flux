@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/math" },
+    { "path": "./packages/ecs" },
+    { "path": "./packages/runtime" },
+    { "path": "./packages/wasm" },
+    { "path": "./examples/basic-simulation" }
+  ]
+}

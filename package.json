@@ -1,0 +1,24 @@
+{
+  "name": "flux-engine-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "High-performance graphics and game runtime for TypeScript (JS, WASM, WebGPU)",
+  "author": "GefyDev <hi@gefy.dev>",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --build --dry",
+    "clean": "git clean -xdf -e node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  },
+  "license": "Apache-2.0"
+}

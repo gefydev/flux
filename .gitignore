@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+bun.lockb
+bun.lock
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Rust build artifacts
+target/
+**/*.rs.bk
+Cargo.lock
+
+# C/C++ build artifacts
+*.o
+*.obj
+*.wasm
+*.dSYM/
+build_wasm/
+
+# Logs & profiling
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment & local secrets
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.sublime-workspace
+*.sublime-project
